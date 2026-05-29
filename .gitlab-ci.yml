@@ -1,0 +1,20 @@
+# CI for AgentStateGraph-site (Astro static site in site/)
+stages:
+  - build
+
+build-site:
+  image: node:22-bookworm
+  cache:
+    key:
+      files:
+        - site/package-lock.json
+    paths:
+      - site/node_modules/
+  script:
+    - cd site
+    - npm ci
+    - npm run build
+  artifacts:
+    paths:
+      - site/dist/
+    expire_in: 1 week
