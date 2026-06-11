@@ -30,9 +30,18 @@ export default defineConfig({
 					],
 				},
 				{
+					label: 'Governance & Scheduling',
+					items: [
+						{ label: 'Namespaces', slug: 'guides/namespaces' },
+						{ label: 'Policy', slug: 'guides/policy' },
+						{ label: 'Taint & Quarantine', slug: 'guides/taint-and-quarantine' },
+						{ label: 'Reminders', slug: 'guides/reminders' },
+					],
+				},
+				{
 					label: 'Reference',
 					items: [
-						{ label: 'MCP Tools (27)', slug: 'reference/mcp-tools' },
+						{ label: 'MCP Tools (73)', slug: 'reference/mcp-tools' },
 						{ label: 'RFC Specification', slug: 'reference/rfc' },
 					],
 				},

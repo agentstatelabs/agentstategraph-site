@@ -51,6 +51,18 @@ AgentStateGraph is a **state primitive** — the layer on which a next-generatio
 	<Card title="Plans & Tasks" icon="list-format">
 		Shared `agentstategraph-tasks` primitive — plans, state machine (pending / in_progress / done), proofs, blockers, and agent assignment. Native `IntentCategory::Plan` for log and blame filtering.
 	</Card>
+	<Card title="Policy" icon="approve-check-circle">
+		Authorization + cost-of-change gating with fallback actions. Cedar, Rego, and WASM evaluators. Ed25519 policy signing and verification. 11 policy tools.
+	</Card>
+	<Card title="Taint & Quarantine" icon="warning">
+		`agentstategraph-taint` mark-and-sweep enforced at commit time. Flag paths as sensitive, quarantine restricted areas, subscribe to changes with `watch`.
+	</Card>
+	<Card title="Namespaces" icon="seti:folder">
+		Ref-layer isolation for multi-project and multi-tenant deployments. Per-call namespace override on every tool. Deny-by-default cross-namespace merges.
+	</Card>
+	<Card title="Reminders" icon="comment">
+		Pull-based scheduling with priority, recurrence, and approval gating. Agents check what's due rather than receiving push notifications.
+	</Card>
 	<Card title="Schema Migrations" icon="rocket">
 		`/_meta/schema_version` lives in-band so upgrade history shows up in `log` and `blame`. `agentstategraph-migrate` provides the registry and runner; `agentstategraph-mcp migrate` is a one-shot CLI with dry-run and sysexits-style codes.
 	</Card>
@@ -58,12 +70,13 @@ AgentStateGraph is a **state primitive** — the layer on which a next-generatio
 
 ## Use It From Anywhere
 
-- **MCP Server** — 27 tools, any MCP-compatible agent
-- **Rust** — native library, 220+ tests across 8 crates
+- **MCP Server** — 73 tools, any MCP-compatible agent
+- **Rust** — native library, 14 crates
 - **Python** — PyO3 bindings
 - **TypeScript/Node** — napi-rs bindings
 - **Go** — CGo via C FFI
 - **WASM** — runs in any browser
+- **4 storage backends** — Memory, SQLite, Postgres (multi-tenant), IndexedDB (browser)
 
 ## The Four Architecture Eras
 

@@ -1,9 +1,28 @@
 ---
 title: MCP Tools Reference
-description: Complete reference for all 27 AgentStateGraph MCP tools with parameters and examples.
+description: Complete reference for all 73 AgentStateGraph MCP tools with parameters and examples.
 ---
 
-> **27 tools** — 3 state operations, 3 branching, 1 merge, 3 history, 5 speculation, 3 epochs, 1 sessions, 1 query, 7 explorer/viewer tools. Also available as [22 HTTP REST endpoints](/guides/mcp-server/#http-rest-api) via `--http` mode. The `agentstategraph-mcp` binary additionally offers a [`migrate` subcommand](/guides/mcp-server/) for schema upgrades — it's a one-shot CLI, not an MCP tool.
+> **73 tools** across 12 categories. Also available as [22 HTTP REST endpoints](/guides/mcp-server/#http-rest-api) via `--http` mode. The `agentstategraph-mcp` binary additionally offers a [`migrate` subcommand](/guides/mcp-server/) for schema upgrades — it's a one-shot CLI, not an MCP tool.
+
+## Tool Index
+
+| Category | Tools | Count |
+|---|---|---|
+| State | `get`, `set`, `delete` | 3 |
+| Branches | `branch`, `list_branches`, `merge`, `diff` | 4 |
+| Namespaces | `create_namespace`, `list_namespaces`, `delete_namespace`, `cross_namespace_merge` | 4 |
+| Speculation | `speculate`, `spec_modify`, `compare`, `commit_spec`, `discard` | 5 |
+| History & Query | `log`, `query`, `blame` | 3 |
+| Epochs | `create_epoch`, `seal_epoch`, `archive_epoch`, `export_epoch`, `enter_epoch`, `exit_epoch`, `list_epochs` | 7 |
+| Sessions | `create_session`, `enter_session`, `exit_session`, `sessions` | 4 |
+| Plans & Tasks | `create_plan`, `list_plans`, `get_plan`, `add_task`, `list_tasks`, `start_task`, `complete_task`, `abandon_task`, `assign_task`, `next_task` | 10 |
+| Policy | `policy_propose`, `policy_ratify`, `policy_supersede`, `policy_list`, `policy_show`, `policy_history`, `policy_evaluate`, `policy_evaluate_change`, `policy_evaluate_change_with_taints`, `policy_check_tokens`, `policy_sign`, `policy_verify`, `policy_cedar`, `policy_rego`, `policy_wasm` | 15 |
+| Taint & Quarantine | `taint`, `untaint`, `quarantine`, `unquarantine`, `watch`, `unwatch`, `list_taints`, `check_taint` | 8 |
+| Reminders | `reminder_create`, `reminder_list`, `reminder_remind_me`, `reminder_snooze`, `reminder_approve`, `reminder_cancel`, `reminder_record_execution` | 7 |
+| Explorer | `list_paths`, `get_tree`, `search`, `stats`, `commit_graph`, `intent_tree` | 6 |
+
+Every tool name in MCP is prefixed with `agentstategraph_` (e.g., `agentstategraph_get`). Every tool that reads or writes state accepts an optional `namespace` parameter for multi-tenant isolation.
 
 ## State Operations
 
@@ -783,3 +802,198 @@ Get the intent decomposition tree. Shows how intents are broken down into sub-ta
   "total_commits": 47
 }
 ```
+
+---
+
+## Namespaces
+
+### agentstategraph_create_namespace
+
+Create a new isolated ref namespace.
+
+| Parameter | Type | Required | Description |
+|---|---|---|---|
+| `namespace` | string | yes | Namespace identifier |
+| `description` | string | no | Human-readable description |
+
+### agentstategraph_list_namespaces
+
+List all namespaces. No parameters.
+
+### agentstategraph_delete_namespace
+
+Delete a namespace and all its refs.
+
+| Parameter | Type | Required | Description |
+|---|---|---|---|
+| `namespace` | string | yes | Namespace to delete |
+
+### agentstategraph_cross_namespace_merge
+
+Merge a ref from one namespace into another. Requires both namespace policies to permit it.
+
+| Parameter | Type | Required | Description |
+|---|---|---|---|
+| `source_namespace` | string | yes | Namespace to merge from |
+| `source_ref` | string | yes | Ref in the source namespace |
+| `target_namespace` | string | yes | Namespace to merge into |
+| `target_ref` | string | yes | Ref in the target namespace |
+| `intent_description` | string | yes | Why this cross-namespace merge |
+| `reasoning` | string | no | Reasoning |
+
+---
+
+## Epochs (extended)
+
+### agentstategraph_archive_epoch
+
+Archive a sealed epoch to long-term storage. The epoch remains queryable but is marked archived.
+
+| Parameter | Type | Required | Description |
+|---|---|---|---|
+| `id` | string | yes | Epoch ID |
+
+### agentstategraph_export_epoch
+
+Export a sealed epoch as a portable JSON bundle with the Merkle root hash for offline verification.
+
+| Parameter | Type | Required | Description |
+|---|---|---|---|
+| `id` | string | yes | Epoch ID |
+
+### agentstategraph_enter_epoch
+
+Scope subsequent commits to a specific epoch. All commits made while in an epoch are automatically tagged with its ID.
+
+| Parameter | Type | Required | Description |
+|---|---|---|---|
+| `id` | string | yes | Epoch ID to enter |
+
+### agentstategraph_exit_epoch
+
+Exit the current epoch scope. No parameters.
+
+---
+
+## Sessions (extended)
+
+### agentstategraph_create_session
+
+Create a new agent session with an identity, branch, parent, and optional path scope.
+
+| Parameter | Type | Required | Description |
+|---|---|---|---|
+| `agent_id` | string | yes | Identity for this session |
+| `branch` | string | yes | Working branch |
+| `parent_session` | string | no | Parent session ID for delegation chains |
+| `delegated_intent` | string | no | Intent this session is executing on behalf of |
+| `path_scope` | string | no | Restrict all writes to this path prefix |
+| `report_to` | string | no | Who receives the resolution report |
+
+### agentstategraph_enter_session / agentstategraph_exit_session
+
+Enter an existing session (scoping subsequent operations to it) or exit the current session. Both accept the session ID or no parameters (for exit).
+
+---
+
+## Plans & Tasks
+
+See [Core Concepts → Plans & Tasks](/guides/concepts/#plans--tasks) for the full model.
+
+### agentstategraph_create_plan
+
+| Parameter | Type | Required | Description |
+|---|---|---|---|
+| `id` | string | yes | Plan identifier |
+| `description` | string | yes | What this plan accomplishes |
+| `tags` | string[] | no | Queryable tags |
+
+### agentstategraph_list_plans / agentstategraph_get_plan
+
+List all plans or get a specific plan with its tasks.
+
+### agentstategraph_add_task
+
+Add a task to an existing plan.
+
+| Parameter | Type | Required | Description |
+|---|---|---|---|
+| `plan_id` | string | yes | Plan to add to |
+| `task_id` | string | yes | Task identifier |
+| `description` | string | yes | What this task accomplishes |
+| `assigned_to` | string | no | Agent assigned to this task |
+| `blockers` | string[] | no | Task IDs that must complete first |
+
+### agentstategraph_start_task / agentstategraph_complete_task / agentstategraph_abandon_task
+
+Transition a task's state machine: `pending → in_progress → done` (or `abandoned`).
+
+### agentstategraph_assign_task
+
+Assign or reassign a task to an agent.
+
+### agentstategraph_next_task
+
+Get the next unblocked task for an agent.
+
+| Parameter | Type | Required | Description |
+|---|---|---|---|
+| `agent_id` | string | yes | Agent to find work for |
+| `plan_id` | string | no | Restrict to a specific plan |
+
+---
+
+## Policy
+
+See [Policy guide](/guides/policy/) for the full lifecycle.
+
+| Tool | Description |
+|---|---|
+| `policy_propose` | Submit a new policy for ratification |
+| `policy_ratify` | Approve a proposed policy, making it active |
+| `policy_supersede` | Replace an active policy with a new version |
+| `policy_list` | List policies, optionally filtered by status |
+| `policy_show` | Get a specific policy's full definition |
+| `policy_history` | Get the propose → ratify → supersede chain for a policy |
+| `policy_evaluate` | Evaluate a subject+action+resource triple against active policies |
+| `policy_evaluate_change` | Evaluate a planned commit against active policies |
+| `policy_evaluate_change_with_taints` | Evaluate a planned commit including taint checks |
+| `policy_check_tokens` | Check whether a commit's estimated token cost is within policy |
+| `policy_sign` | Sign a policy with the configured Ed25519 key |
+| `policy_verify` | Verify a policy's signature |
+| `policy_cedar` | Register a Cedar policy as the active evaluator |
+| `policy_rego` | Register a Rego policy as the active evaluator |
+| `policy_wasm` | Register a WASM policy runner as the active evaluator |
+
+---
+
+## Taint & Quarantine
+
+See [Taint & Quarantine guide](/guides/taint-and-quarantine/) for detailed examples.
+
+| Tool | Description |
+|---|---|
+| `taint` | Mark a path as sensitive with a severity and reason |
+| `untaint` | Remove a taint marker from a path |
+| `quarantine` | Hard-gate a path — blocks all writes until lifted |
+| `unquarantine` | Lift a quarantine |
+| `watch` | Subscribe an agent to change notifications on a path |
+| `unwatch` | Remove a watch subscription |
+| `list_taints` | List active taints, optionally filtered by severity |
+| `check_taint` | Check taint and quarantine status for a set of paths |
+
+---
+
+## Reminders
+
+See [Reminders guide](/guides/reminders/) for detailed examples.
+
+| Tool | Description |
+|---|---|
+| `reminder_create` | Create a reminder with due time, priority, and optional recurrence |
+| `reminder_list` | List reminders, filtered by assignee or status |
+| `reminder_remind_me` | Retrieve all reminders currently due for the calling agent |
+| `reminder_snooze` | Push a reminder's due time forward |
+| `reminder_approve` | Approve an approval-gated reminder, making it active |
+| `reminder_cancel` | Cancel a reminder |
+| `reminder_record_execution` | Record the result of acting on a reminder; schedules next recurrence |

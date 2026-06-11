@@ -38,9 +38,16 @@ Every state change in AgentStateGraph captures the **full provenance chain**:
 - **Speculative execution** — O(1) branching, instant discard
 - **Multi-agent orchestration** — scoped sessions, delegation, intent trees
 - **Epochs** — sealable, tamper-evident audit bundles
-- **27 MCP tools** — any agent can connect immediately
+- **73 MCP tools** — any agent can connect immediately
 - **HTTP REST API** — 22 endpoints with CORS, run with `--http`
 - **Browser explorer** — interactive data viewer at [agentstategraph.dev/explorer/](https://agentstategraph.dev/explorer/)
 - **6 language bindings** — Rust, Python, TypeScript, Go, WASM, C FFI
+- **4 storage backends** — Memory, SQLite, Postgres (multi-tenant), IndexedDB (browser)
+- **14 crates** — modular core, storage, MCP, policy, taint, tasks, reminders, and bindings
 - **Plans & Tasks** — shared `agentstategraph-tasks` primitive with state machine, proofs, blockers, agent assignment
+- **Policy** — authorization + cost-of-change gating with Cedar, Rego, and WASM evaluators; Ed25519 signing
+- **Taint & quarantine** — `agentstategraph-taint` mark-and-sweep enforced at commit time
+- **Namespaces** — ref-layer isolation for multi-project / multi-tenant deployments
+- **Reminders** — pull-based scheduling with priority, recurrence, and approval gating
+- **19 intent categories** — Explore, Refine, Fix, Rollback, Checkpoint, Merge, Migrate, Plan, Taint, Untaint, Quarantine, Unquarantine, Watch, Unwatch, PolicyPropose, PolicyRatify, PolicySupersede, PolicySign, Custom
 - **Schema migrations** — `/_meta/schema_version` guard + `agentstategraph-migrate` registry + `agentstategraph-mcp migrate` CLI
