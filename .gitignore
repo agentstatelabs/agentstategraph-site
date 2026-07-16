@@ -1,0 +1,3 @@
+
+# org leak patterns (CI var, never public)
+.leakscan.local

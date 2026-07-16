@@ -1,0 +1,102 @@
+/* AgentStateGraph docs theme — fresh modern-dark, cohesive with the homepage.
+   Indigo → electric-cyan accent on a deep slate background. */
+
+:root {
+	/* Accent (indigo) */
+	--sl-color-accent-low: #1b2350;
+	--sl-color-accent: #6d76ff;
+	--sl-color-accent-high: #b9bdff;
+
+	/* Text */
+	--sl-color-white: #e9eefb;
+	--sl-color-gray-1: #d3daee;
+	--sl-color-gray-2: #9aa7c4;
+	--sl-color-gray-3: #616f92;
+
+	--sl-font-system: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* Dark theme surfaces (default). */
+:root[data-theme='dark'] {
+	--sl-color-bg: #070a12;
+	--sl-color-bg-nav: rgba(7, 10, 18, 0.78);
+	--sl-color-bg-sidebar: #0c1120;
+	--sl-color-bg-inline-code: #6d76ff1f;
+	--sl-color-hairline: #212c46;
+	--sl-color-hairline-light: #212c46;
+	--sl-color-hairline-shade: #1a2338;
+	--sl-color-text: #cdd6ec;
+	--sl-color-text-accent: #9aa1ff;
+	--sl-color-gray-4: #3a4a72;
+	--sl-color-gray-5: #212c46;
+	--sl-color-gray-6: #111a2e;
+	--sl-color-gray-7: #0c1120;
+}
+
+/* Subtle ambient glow behind the whole doc surface, matching the homepage. */
+:root[data-theme='dark'] body {
+	background-image:
+		radial-gradient(60rem 40rem at 100% -6%, #6d76ff0f, transparent 60%),
+		radial-gradient(50rem 40rem at 0% 4%, #34e0e80c, transparent 55%);
+	background-attachment: fixed;
+}
+
+/* Gradient-adjacent site title in the header. */
+.site-title {
+	font-weight: 700;
+	letter-spacing: -0.3px;
+}
+
+/* Links */
+.sl-markdown-content a:not(:where(.not-content *)) {
+	color: var(--sl-color-accent-high);
+	text-underline-offset: 3px;
+}
+
+/* Inline code with a hint of accent. */
+.sl-markdown-content code:not(:where(.not-content *)) {
+	color: #b9bdff;
+	border: 1px solid #6d76ff2e;
+	border-radius: 5px;
+	padding: 0.1em 0.35em;
+}
+
+/* Headings get a touch more presence. */
+.sl-markdown-content :is(h1, h2, h3) {
+	letter-spacing: -0.4px;
+}
+.sl-markdown-content h2 {
+	border-top: 1px solid var(--sl-color-hairline);
+	padding-top: 1.6rem;
+}
+
+/* Sidebar active item highlight. */
+.sidebar-content a[aria-current='page'],
+.sidebar-content a[aria-current='page']:hover {
+	background: linear-gradient(90deg, #6d76ff26, #34e0e80f);
+	border-radius: 7px;
+	color: #fff;
+}
+
+/* Tables: cohesive borders. */
+.sl-markdown-content table {
+	border: 1px solid var(--sl-color-hairline);
+	border-radius: 8px;
+	overflow: hidden;
+}
+.sl-markdown-content th {
+	background: #111a2e;
+	color: var(--sl-color-white);
+}
+
+/* Rounded asides. */
+.sl-markdown-content .starlight-aside {
+	border-radius: 10px;
+}
+
+/* Code blocks: deeper background to match the terminal aesthetic. */
+:root[data-theme='dark'] .expressive-code .frame pre,
+:root[data-theme='dark'] .sl-markdown-content pre {
+	background: #070a12 !important;
+	border: 1px solid var(--sl-color-hairline);
+}

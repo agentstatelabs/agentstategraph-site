@@ -1,0 +1,662 @@
+---
+// Custom landing page — overrides Starlight splash for agentstategraph.dev
+// Theme: AgentStateGraph is the Agentic System of Record — the substrate every
+// agent / LLM application is built on. Fresh modern-dark design.
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AgentStateGraph — The Agentic System of Record</title>
+  <meta name="description" content="AgentStateGraph is the Agentic System of Record: the content-addressed, branchable, governable state substrate every AI agent and LLM application is built on. Every feature native agent interactions require, in one primitive." />
+  <meta property="og:title" content="AgentStateGraph — The Agentic System of Record" />
+  <meta property="og:description" content="The state substrate for building any agent / LLM application. Provenance, memory, observability, and governance — native." />
+  <meta property="og:url" content="https://agentstategraph.dev" />
+  <meta name="theme-color" content="#070a12" />
+  <link rel="icon" href="/favicon.svg" />
+  <style>
+    :root {
+      --bg:        #070a12;
+      --bg-1:      #0c1120;
+      --bg-2:      #111a2e;
+      --bg-3:      #17233c;
+      --border:    #212c46;
+      --border-hi: #33436b;
+      --txt:       #e9eefb;
+      --txt-2:     #9aa7c4;
+      --txt-3:     #616f92;
+      --indigo:    #6d76ff;
+      --indigo-hi: #9aa1ff;
+      --violet:    #a855f7;
+      --cyan:      #33e1e8;
+      --success:   #35d6a4;
+      --warn:      #fbbf24;
+      --danger:    #fb7185;
+      --grad:      linear-gradient(120deg, #6d76ff 0%, #34e0e8 100%);
+      --grad-soft: linear-gradient(120deg, #6d76ff33, #34e0e833);
+      --radius:    14px;
+      --radius-sm: 9px;
+      --maxw:      1140px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg); color: var(--txt); line-height: 1.6;
+      overflow-x: hidden; -webkit-font-smoothing: antialiased;
+      background-image:
+        radial-gradient(60rem 40rem at 12% -8%, #6d76ff14, transparent 60%),
+        radial-gradient(50rem 40rem at 92% 2%, #34e0e810, transparent 55%);
+      background-attachment: fixed;
+    }
+    a { color: var(--indigo-hi); text-decoration: none; }
+    a:hover { color: #fff; }
+    code, pre { font-family: 'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace; }
+    .container { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+    .grad-text { background: var(--grad); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+
+    /* Nav */
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: 60px; display: flex; align-items: center; justify-content: center; background: rgba(7,10,18,0.72); backdrop-filter: blur(14px); border-bottom: 1px solid transparent; opacity: 0; transform: translateY(-100%); transition: .35s; pointer-events: none; }
+    .nav.visible { opacity: 1; transform: translateY(0); pointer-events: all; border-bottom-color: var(--border); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; max-width: var(--maxw); width: 100%; padding: 0 24px; }
+    .nav-logo { display: flex; align-items: center; gap: 9px; font-size: 15px; font-weight: 700; color: var(--txt); }
+    .nav-logo .mark { width: 20px; height: 20px; }
+    .nav-links { display: flex; gap: 26px; align-items: center; }
+    .nav-links a { color: var(--txt-2); font-size: 13.5px; font-weight: 500; transition: color .2s; }
+    .nav-links a:hover { color: var(--txt); }
+    .nav-links .ghbtn { padding: 7px 15px; border: 1px solid var(--border-hi); border-radius: 8px; color: var(--txt); }
+    .nav-links .ghbtn:hover { border-color: var(--indigo); }
+
+    /* Hero */
+    .hero { position: relative; text-align: center; padding: 150px 24px 70px; overflow: hidden; }
+    .hero-grid { position: absolute; inset: 0; z-index: 0; background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 46px 46px; opacity: .18; mask-image: radial-gradient(ellipse 70% 60% at 50% 25%, #000 20%, transparent 75%); }
+    .hero > * { position: relative; z-index: 1; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; letter-spacing: .3px; color: var(--indigo-hi); background: #6d76ff14; border: 1px solid #6d76ff44; padding: 5px 14px; border-radius: 999px; margin-bottom: 26px; }
+    .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 8px var(--cyan); }
+    .hero h1 { font-size: clamp(38px, 6.4vw, 66px); font-weight: 800; letter-spacing: -1.6px; line-height: 1.04; margin-bottom: 22px; }
+    .hero h1 .sub { display: block; color: var(--txt); }
+    .hero .lede { font-size: clamp(16px, 2.1vw, 20px); color: var(--txt-2); max-width: 720px; margin: 0 auto 14px; line-height: 1.6; }
+    .hero .lede strong { color: var(--txt); font-weight: 650; }
+    .hero .microcopy { font-size: 13px; color: var(--txt-3); margin-bottom: 34px; font-family: 'JetBrains Mono', monospace; }
+    .cta-row { display: flex; gap: 13px; justify-content: center; flex-wrap: wrap; }
+    .btn { display: inline-flex; align-items: center; gap: 9px; padding: 13px 24px; border-radius: 10px; font-size: 14.5px; font-weight: 600; cursor: pointer; transition: .2s; border: 1px solid transparent; }
+    .btn-primary { background: var(--grad); color: #05070d; }
+    .btn-primary:hover { color: #05070d; transform: translateY(-2px); box-shadow: 0 10px 34px -8px #6d76ffaa; }
+    .btn-secondary { background: #ffffff08; color: var(--txt); border-color: var(--border-hi); }
+    .btn-secondary:hover { color: #fff; border-color: var(--indigo); background: #6d76ff14; }
+
+    /* Stat strip */
+    .stats { display: flex; flex-wrap: wrap; justify-content: center; gap: 0; margin: 54px auto 0; max-width: 860px; border: 1px solid var(--border); border-radius: var(--radius); background: linear-gradient(180deg, #ffffff05, transparent); backdrop-filter: blur(6px); }
+    .stat { flex: 1; min-width: 150px; padding: 22px 18px; text-align: center; border-right: 1px solid var(--border); }
+    .stat:last-child { border-right: none; }
+    .stat .n { font-size: 30px; font-weight: 800; letter-spacing: -1px; }
+    .stat .l { font-size: 12px; color: var(--txt-3); margin-top: 3px; text-transform: uppercase; letter-spacing: .8px; }
+
+    /* Sections */
+    .section { padding: 92px 24px; }
+    .section.tight { padding-top: 40px; }
+    .kicker { font-size: 12px; color: var(--cyan); text-transform: uppercase; letter-spacing: 2.5px; font-weight: 700; margin-bottom: 12px; text-align: center; }
+    .title { font-size: clamp(26px, 3.6vw, 38px); font-weight: 780; letter-spacing: -.8px; text-align: center; margin-bottom: 16px; }
+    .subtitle { font-size: 17px; color: var(--txt-2); text-align: center; max-width: 680px; margin: 0 auto 52px; line-height: 1.65; }
+
+    /* Thesis */
+    .thesis { max-width: 820px; margin: 0 auto; text-align: center; font-size: clamp(20px, 2.7vw, 27px); line-height: 1.5; font-weight: 500; color: var(--txt-2); letter-spacing: -.3px; }
+    .thesis strong { color: var(--txt); font-weight: 700; }
+    .thesis .hl { background: var(--grad); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700; }
+
+    /* Pillars */
+    .pillars { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; max-width: var(--maxw); margin: 0 auto; }
+    .pillar { background: var(--bg-1); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; transition: .2s; }
+    .pillar:hover { border-color: var(--border-hi); transform: translateY(-3px); }
+    .pillar .pi { width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center; background: #6d76ff18; border: 1px solid #6d76ff33; margin-bottom: 14px; }
+    .pillar h3 { font-size: 16px; font-weight: 700; margin-bottom: 7px; }
+    .pillar p { font-size: 13.5px; color: var(--txt-2); line-height: 1.6; }
+
+    /* Feature groups */
+    .fgroup { max-width: var(--maxw); margin: 0 auto 46px; }
+    .fgroup-head { display: flex; align-items: center; gap: 14px; margin-bottom: 22px; }
+    .fgroup-head .fg-num { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--cyan); font-weight: 700; }
+    .fgroup-head h3 { font-size: 20px; font-weight: 730; letter-spacing: -.3px; white-space: nowrap; }
+    .fgroup-head .line { flex: 1; height: 1px; background: linear-gradient(90deg, var(--border), transparent); }
+    .fgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+    .feature { background: var(--bg-1); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 20px; transition: .2s; position: relative; overflow: hidden; }
+    .feature::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--grad); opacity: 0; transition: .2s; }
+    .feature:hover { border-color: var(--border-hi); background: var(--bg-2); }
+    .feature:hover::before { opacity: 1; }
+    .feature .fh { display: flex; align-items: center; gap: 9px; margin-bottom: 9px; }
+    .feature .fh h4 { font-size: 15px; font-weight: 700; letter-spacing: -.2px; }
+    .feature .fh .badge { font-size: 9.5px; font-weight: 700; letter-spacing: .5px; text-transform: uppercase; color: var(--cyan); background: #34e0e814; border: 1px solid #34e0e833; padding: 2px 7px; border-radius: 6px; margin-left: auto; }
+    .feature p { font-size: 13.2px; color: var(--txt-2); line-height: 1.62; }
+    .feature p code { font-size: 11.6px; color: var(--indigo-hi); background: #6d76ff14; padding: 1px 5px; border-radius: 4px; }
+
+    /* Commit anatomy */
+    .commit-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; max-width: 860px; margin: 0 auto; }
+    .cfield { background: var(--bg-1); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px 14px; transition: .2s; }
+    .cfield:hover { border-color: var(--indigo); background: var(--bg-2); }
+    .cfield .cn { font-size: 13px; font-weight: 700; color: var(--indigo-hi); font-family: 'JetBrains Mono', monospace; margin-bottom: 4px; }
+    .cfield .cq { font-size: 12.5px; color: var(--txt-2); }
+
+    /* Principles */
+    .principles { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; max-width: var(--maxw); margin: 0 auto; }
+    .principle { background: linear-gradient(160deg, var(--bg-2), var(--bg-1)); border: 1px solid var(--border); border-radius: var(--radius); padding: 26px; transition: .2s; }
+    .principle:hover { border-color: var(--border-hi); }
+    .principle .ph { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+    .principle .picon { width: 38px; height: 38px; border-radius: 10px; display: grid; place-items: center; background: var(--grad-soft); border: 1px solid #6d76ff33; flex-shrink: 0; }
+    .principle h3 { font-size: 18px; font-weight: 730; letter-spacing: -.3px; }
+    .principle .why { font-size: 13.6px; color: var(--txt-2); line-height: 1.66; margin-bottom: 12px; }
+    .principle .how { font-size: 12.6px; color: var(--txt-3); line-height: 1.6; border-top: 1px solid var(--border); padding-top: 11px; }
+    .principle .how b { color: var(--indigo-hi); font-weight: 600; }
+
+    /* Bindings */
+    .lang-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 14px; max-width: var(--maxw); margin: 0 auto; }
+    .lang { background: var(--bg-1); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 18px; transition: .2s; }
+    .lang:hover { border-color: var(--border-hi); }
+    .lang .ln { font-size: 14px; font-weight: 700; color: var(--txt); margin-bottom: 3px; }
+    .lang .lm { font-size: 11.5px; color: var(--txt-3); margin-bottom: 11px; }
+    .lang pre { font-size: 11.5px; color: var(--txt-2); background: var(--bg); border: 1px solid var(--border); padding: 9px 11px; border-radius: 7px; overflow-x: auto; }
+    .lang pre code { color: var(--cyan); }
+
+    /* Backends */
+    .back-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; max-width: 980px; margin: 0 auto; }
+    .backend { background: var(--bg-1); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 18px; text-align: center; transition: .2s; }
+    .backend:hover { border-color: var(--indigo); transform: translateY(-2px); }
+    .backend .bn { font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 700; color: var(--txt); margin-bottom: 6px; }
+    .backend .bd { font-size: 12px; color: var(--txt-2); line-height: 1.5; }
+
+    /* Terminal */
+    .terminal { max-width: 680px; margin: 0 auto; border-radius: var(--radius); background: var(--bg); border: 1px solid var(--border-hi); overflow: hidden; box-shadow: 0 24px 60px -20px #000; }
+    .term-bar { padding: 11px 14px; display: flex; align-items: center; gap: 8px; background: var(--bg-2); border-bottom: 1px solid var(--border); }
+    .tdot { width: 11px; height: 11px; border-radius: 50%; }
+    .tdot.r { background: #fb7185; } .tdot.y { background: #fbbf24; } .tdot.g { background: #35d6a4; }
+    .term-title { font-size: 11.5px; color: var(--txt-3); margin-left: 8px; font-family: 'JetBrains Mono', monospace; }
+    .term-body { padding: 18px; font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.75; min-height: 190px; white-space: pre-wrap; }
+    .term-body .p { color: var(--success); }
+    .term-body .c { color: var(--cyan); }
+    .term-body .o { color: var(--txt-3); }
+    .cursor { display: inline-block; width: 8px; height: 15px; background: var(--indigo-hi); vertical-align: text-bottom; animation: blink 1s step-end infinite; }
+
+    /* Not / scope */
+    .not-grid { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; max-width: 760px; margin: 0 auto; }
+    .notbox { flex: 1; min-width: 220px; background: var(--bg-1); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 18px; text-align: left; }
+    .notbox .nt { font-size: 12.5px; color: var(--danger); margin-bottom: 6px; font-weight: 700; }
+    .notbox .nd { font-size: 13px; color: var(--txt-2); line-height: 1.6; }
+
+    /* License */
+    .lic-row { display: flex; flex-direction: column; gap: 11px; margin-bottom: 26px; }
+    .lic-item { display: flex; gap: 13px; align-items: flex-start; padding: 14px 16px; background: var(--bg-1); border: 1px solid var(--border); border-radius: var(--radius-sm); }
+    .lic-item .ic { font-weight: 800; font-size: 16px; flex-shrink: 0; line-height: 1.4; }
+    .lic-item span.txt { font-size: 13.6px; color: var(--txt-2); line-height: 1.62; }
+    .lic-item span.txt strong { color: var(--txt); }
+    .lic-card { background: var(--bg-1); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; margin-bottom: 20px; }
+    .lic-card h4 { font-size: 14.5px; font-weight: 700; margin-bottom: 8px; }
+    .lic-card p { font-size: 13.6px; color: var(--txt-2); line-height: 1.68; }
+    .lic-card p + p { margin-top: 10px; color: var(--txt-3); font-size: 12.8px; }
+
+    /* Footer */
+    .footer { background: var(--bg-1); border-top: 1px solid var(--border); padding: 56px 24px 28px; }
+    .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 32px; max-width: var(--maxw); margin: 0 auto 34px; }
+    .footer-brand .fb-logo { display: flex; align-items: center; gap: 9px; font-weight: 700; font-size: 16px; margin-bottom: 10px; }
+    .footer-brand p { font-size: 13px; color: var(--txt-3); line-height: 1.6; max-width: 280px; }
+    .footer-col h4 { font-size: 12px; color: var(--txt-3); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 13px; }
+    .footer-col a { display: block; color: var(--txt-2); font-size: 13px; padding: 4px 0; transition: color .2s; }
+    .footer-col a:hover { color: var(--txt); }
+    .footer-bottom { text-align: center; font-size: 12.5px; color: var(--txt-3); padding-top: 26px; border-top: 1px solid var(--border); max-width: var(--maxw); margin: 0 auto; }
+
+    /* Reveal */
+    [data-reveal] { opacity: 0; transform: translateY(34px); transition: opacity .6s cubic-bezier(.25,.46,.45,.94), transform .6s cubic-bezier(.25,.46,.45,.94); }
+    [data-reveal].in { opacity: 1; transform: none; }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    @media (max-width: 940px) {
+      .pillars { grid-template-columns: repeat(2, 1fr); }
+      .fgrid { grid-template-columns: repeat(2, 1fr); }
+      .principles { grid-template-columns: 1fr; }
+      .back-grid { grid-template-columns: repeat(2, 1fr); }
+      .commit-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .nav-links a:not(.ghbtn) { display: none; }
+    }
+    @media (max-width: 600px) {
+      .section { padding: 64px 20px; }
+      .pillars, .fgrid, .back-grid, .commit-grid { grid-template-columns: 1fr; }
+      .stat { border-right: none; border-bottom: 1px solid var(--border); }
+      .cta-row { flex-direction: column; align-items: stretch; }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav">
+  <div class="nav-inner">
+    <span class="nav-logo">
+      <svg class="mark" viewBox="0 0 24 24" fill="none"><circle cx="6" cy="6" r="2.4" fill="#6d76ff"/><circle cx="18" cy="6" r="2.4" fill="#34e0e8"/><circle cx="12" cy="18" r="2.4" fill="#a855f7"/><path d="M6 6L12 18L18 6" stroke="#33436b" stroke-width="1.4"/></svg>
+      AgentStateGraph
+    </span>
+    <div class="nav-links">
+      <a href="#thesis">Why</a>
+      <a href="#features">Features</a>
+      <a href="#principles">Principles</a>
+      <a href="/explorer/">Explorer</a>
+      <a href="/guides/introduction/">Docs</a>
+      <a class="ghbtn" href="https://github.com/agentstatelabs/AgentStateGraph" target="_blank">GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <span class="eyebrow"><span class="dot"></span> v0.9.2 · BSL 1.1 · Rust core</span>
+  <h1><span class="grad-text">The Agentic System of Record</span><span class="sub">for every agent you build.</span></h1>
+  <p class="lede">AgentStateGraph is the state substrate underneath any agent or LLM application — <strong>content-addressed, branchable, and governable</strong>. Every feature native agent interactions require, in one primitive: provenance, memory, observability, policy, and audit.</p>
+  <p class="microcopy">state · intent · provenance · policy · taint · reminders · epochs · sessions</p>
+  <div class="cta-row">
+    <a class="btn btn-primary" href="/guides/quickstart/">Start building →</a>
+    <a class="btn btn-secondary" href="#features">Explore the features</a>
+    <a class="btn btn-secondary" href="/explorer/">Try the Explorer</a>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="n grad-text">73</div><div class="l">MCP tools</div></div>
+    <div class="stat"><div class="n grad-text">7</div><div class="l">Language bindings</div></div>
+    <div class="stat"><div class="n grad-text">4</div><div class="l">Storage backends</div></div>
+    <div class="stat"><div class="n grad-text">15</div><div class="l">Modular crates</div></div>
+  </div>
+</section>
+
+<!-- Thesis -->
+<section class="section" id="thesis" data-reveal>
+  <div class="container">
+    <p class="kicker">The case for a system of record</p>
+    <p class="thesis">Every serious application built a <strong>system of record</strong> — the database was the source of truth for its data. Agent applications have no equivalent for their <span class="hl">decisions</span>. AgentStateGraph is that layer: the durable, queryable, tamper-evident record of <strong>what every agent did, why, on whose authority, and what it expected versus observed.</strong></p>
+  </div>
+</section>
+
+<!-- Pillars -->
+<section class="section tight" data-reveal>
+  <div class="container">
+    <div class="pillars">
+      <div class="pillar">
+        <div class="pi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9aa1ff" stroke-width="1.8"><path d="M4 7c0-1.7 3.6-3 8-3s8 1.3 8 3-3.6 3-8 3-8-1.3-8-3z"/><path d="M4 7v10c0 1.7 3.6 3 8 3s8-1.3 8-3V7"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></div>
+        <h3>Source of truth</h3>
+        <p>One authoritative, content-addressed record of every state change your agents make — not scattered across logs, traces, and chat transcripts.</p>
+      </div>
+      <div class="pillar">
+        <div class="pi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9aa1ff" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l3 3M16 16l3 3M19 5l-3 3M8 16l-3 3"/></svg></div>
+        <h3>Native to agents</h3>
+        <p>Branch, speculate, delegate, and merge — the moves agents actually make. Intent, reasoning, and confidence are first-class, not afterthoughts.</p>
+      </div>
+      <div class="pillar">
+        <div class="pi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9aa1ff" stroke-width="1.8"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <h3>Governed mechanically</h3>
+        <p>Policy, signing, taint, and quarantine gate what agents can do. Accountability is enforced by construction — not by trusting a fleet to behave.</p>
+      </div>
+      <div class="pillar">
+        <div class="pi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9aa1ff" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div>
+        <h3>Runs anywhere</h3>
+        <p>73 MCP tools, an HTTP API, seven language bindings, and four storage backends — from an in-browser tab to a multi-tenant Postgres cluster.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features -->
+<section class="section" id="features">
+  <div class="container" data-reveal>
+    <p class="kicker">The complete feature set</p>
+    <h2 class="title">Everything native agent interactions require</h2>
+    <p class="subtitle">Not a helper library and not a wrapper around old tools — a purpose-built substrate. Here is every capability ASG ships, grouped by what it does for your agents.</p>
+  </div>
+
+  <!-- Group 1: State & History -->
+  <div class="fgroup" data-reveal>
+    <div class="fgroup-head"><span class="fg-num">01</span><h3>State &amp; History</h3><span class="line"></span></div>
+    <div class="fgrid">
+      <div class="feature"><div class="fh"><h4>Content-addressed state</h4></div><p>Every value is stored in an immutable, BLAKE3-hashed Merkle DAG. Identical state deduplicates automatically, and any tampering is detectable because the hash no longer matches. This is the same integrity model as Git — built for structured agent state, not text.</p></div>
+      <div class="feature"><div class="fh"><h4>Structured intent on every write</h4></div><p>A commit is never just "what changed." Each carries an <code>intent</code> (why), <code>reasoning</code> (how the agent decided), <code>confidence</code> (0.0–1.0), <code>agent_id</code>, <code>authority</code>, and a resolution report — all queryable, none of it buried in a log line.</p></div>
+      <div class="feature"><div class="fh"><h4>19 intent categories</h4></div><p>Explore, Refine, Fix, Rollback, Checkpoint, Merge, Migrate, Plan, and the taint/policy verbs give every change a machine-filterable classification — plus an open <code>Custom</code> variant for domain-specific semantics.</p></div>
+      <div class="feature"><div class="fh"><h4>Blame</h4></div><p>Ask <code>blame /any/path</code> and get the full chain: which agent set this value, when, under what intent and confidence, on whose authority, and what it superseded. The answer to "who did this and why" is one call, not a two-hour reconstruction.</p></div>
+      <div class="feature"><div class="fh"><h4>Unified query</h4></div><p>Compose filters across the entire history — by agent, intent category, tag, authority principal, confidence range, free-text reasoning match, date window, or whether a change deviated from plan. Provenance becomes a database query.</p></div>
+      <div class="feature"><div class="fh"><h4>Resolution reporting</h4></div><p>When an agent finishes an intent it files a structured resolution: what was accomplished, which commits and branches it produced, the outcome, and every <code>deviation</code> from the original plan with its reason and impact. Expectation versus reality, recorded.</p></div>
+    </div>
+  </div>
+
+  <!-- Group 2: Exploration & Concurrency -->
+  <div class="fgroup" data-reveal>
+    <div class="fgroup-head"><span class="fg-num">02</span><h3>Exploration &amp; Concurrency</h3><span class="line"></span></div>
+    <div class="fgrid">
+      <div class="feature"><div class="fh"><h4>Branching</h4></div><p>Agents don't run linear scripts — they explore state spaces. Create a branch to try an approach in isolation, compare it against the baseline, and keep or discard it. Programmatic-speed branching, designed for machines making dozens of attempts.</p></div>
+      <div class="feature"><div class="fh"><h4>Speculative execution</h4></div><p>Spin up O(1) in-memory speculations that cost nothing to create and nothing to throw away. Run three approaches side by side, diff their outcomes, commit the winner with full reasoning, and discard the rest — all before anything touches durable storage.</p></div>
+      <div class="feature"><div class="fh"><h4>Schema-aware merge</h4></div><p>Merges understand structure, not text. CRDT-inspired hints — <code>sum</code>, <code>max</code>, <code>union-by-id</code> — auto-resolve most concurrent edits, and genuine conflicts surface as machine-readable objects an agent can reason about instead of a diff full of <code>&lt;&lt;&lt;&lt;</code> markers.</p></div>
+      <div class="feature"><div class="fh"><h4>Structured diff</h4></div><p>Comparing two refs yields typed diff operations — set-value, add-key, remove-key — over the object tree, not a line-based text diff. Agents get a precise, programmatic view of exactly what changed between any two points.</p></div>
+      <div class="feature"><div class="fh"><h4>Watch &amp; subscribe</h4></div><p>Subscribe to a path pattern and receive reactive notifications as matching commits land. Agents and dashboards can respond to state changes the moment they happen instead of polling.</p></div>
+      <div class="feature"><div class="fh"><h4>Commit &amp; intent graphs</h4></div><p>Materialize the commit DAG for visualization, or the intent-decomposition tree that shows how one high-level goal fanned out into sub-intents across a fleet of agents. The whole execution shape, reconstructable after the fact.</p></div>
+    </div>
+  </div>
+
+  <!-- Group 3: Multi-Agent Orchestration -->
+  <div class="fgroup" data-reveal>
+    <div class="fgroup-head"><span class="fg-num">03</span><h3>Multi-Agent Orchestration</h3><span class="line"></span></div>
+    <div class="fgrid">
+      <div class="feature"><div class="fh"><h4>Sessions &amp; delegation</h4></div><p>A durable session records a sub-agent's context: its working branch, the intent it was delegated, who it reports to, and its path or namespace scope. When an orchestrator spiders one goal into dozens of agent sessions, the entire tree persists instead of evaporating with the conversation.</p></div>
+      <div class="feature"><div class="fh"><h4>Authority &amp; delegation chains</h4></div><p>Every change records who authorized it, with the full delegation lineage back to the originating principal. "The agent did it" is never the end of the trail — you can always follow the chain to the human or policy that permitted the action.</p></div>
+      <div class="feature"><div class="fh"><h4>Plans &amp; tasks</h4></div><p>A shared plan/task primitive with a strict state machine (<code>pending → in_progress → done</code>), agent assignment, blockers, and priorities. Completion requires an attached <code>Proof</code> — a commit, file, test, or URL — so "done" means verifiable, not merely claimed.</p><div style="margin-top:8px"><span class="badge" style="position:static;font-size:9.5px;color:var(--cyan);background:#34e0e814;border:1px solid #34e0e833;padding:2px 7px;border-radius:6px">agentstategraph-tasks</span></div></div>
+      <div class="feature"><div class="fh"><h4>Namespaces</h4></div><p>A ref-layer isolation boundary that keeps projects and tenants fully separate within one store. Branches in different namespaces never collide, cross-namespace merges are denied by default, and any operation can override its namespace per call for multi-tenant deployments.</p></div>
+      <div class="feature"><div class="fh"><h4>Epochs</h4></div><p>Group a bounded segment of work, then <code>seal</code> it into a tamper-evident bundle with a Merkle root hash. Sealed epochs export as self-contained, independently verifiable audit packages — hand one to a regulator and they can confirm nothing was altered.</p></div>
+    </div>
+  </div>
+
+  <!-- Group 4: Governance & Safety -->
+  <div class="fgroup" data-reveal>
+    <div class="fgroup-head"><span class="fg-num">04</span><h3>Governance &amp; Safety</h3><span class="line"></span></div>
+    <div class="fgrid">
+      <div class="feature"><div class="fh"><h4>Policy engine</h4></div><p>Author rules that gate changes on authorization <em>and</em> cost-of-change. A proposed change is evaluated into an <code>Allow</code>, <code>Deny</code>, or <code>RequireApproval</code> decision, with fallback actions (continue, queue, defer, reject) for the approval path. Soft enforcement plus a complete audit trail of every decision.</p></div>
+      <div class="feature"><div class="fh"><h4>Policy lifecycle &amp; signing</h4></div><p>Policies move through <code>propose → ratify → supersede</code>, each step a first-class commit. Ratified policies can be signed with Ed25519 over canonical JSON, so the rules governing your fleet are themselves tamper-evident and attributable.</p></div>
+      <div class="feature"><div class="fh"><h4>Pluggable evaluators</h4></div><p>The built-in selector DSL covers most rules, but you can plug in mature policy languages: an OPA/<b>Rego</b> evaluator ships today, with Cedar and sandboxed WASM runners on the same external-evaluator interface.</p></div>
+      <div class="feature"><div class="fh"><h4>Taint &amp; quarantine</h4></div><p>Mark a path as degraded, sensitive, or under review. Effects range from advisory <code>Warn</code> to hard <code>Block</code>, a <code>Review</code> gate that demands ≥0.9 confidence, or <code>Isolate</code> to hide a path from queries. Enforced by a pre-commit sweep that walks the path's ancestors.</p></div>
+      <div class="feature"><div class="fh"><h4>Auditable enforcement</h4></div><p>Every taint, quarantine, and watch is itself a commit with full intent metadata — so the act of restricting access, and every rejected write attempt, is as blameable and queryable as any other change.</p></div>
+      <div class="feature"><div class="fh"><h4>Reserved-path guards</h4></div><p>System metadata under <code>/_meta/*</code> is protected: writes require a migration intent, and a <code>/_meta/_secret/*</code> sub-prefix is gated on read and filtered out of listings and search — a built-in place to keep sensitive keys away from ordinary agent traffic.</p></div>
+    </div>
+  </div>
+
+  <!-- Group 5: Scheduling & Lifecycle -->
+  <div class="fgroup" data-reveal>
+    <div class="fgroup-head"><span class="fg-num">05</span><h3>Scheduling &amp; Lifecycle</h3><span class="line"></span></div>
+    <div class="fgrid">
+      <div class="feature"><div class="fh"><h4>Reminders</h4></div><p>A pull-based scheduler built for agents: nothing is pushed, agents call <code>remind_me</code> at natural checkpoints and receive what's due, ordered by priority. Supports one-off, interval, daily, and weekly schedules, with soft references to branches, plans, and tasks.</p></div>
+      <div class="feature"><div class="fh"><h4>Approval-gated actions</h4></div><p>Reminders can be autonomous or require sign-off. A non-autonomous reminder parks in <code>AwaitingPermission</code> until a human approves it — a clean pattern for "wake me up to do X, but only if you say it's okay."</p></div>
+      <div class="feature"><div class="fh"><h4>Schema evolution &amp; migrations</h4></div><p>Your store carries a schema version in-band at <code>/_meta/schema_version</code>. The migrate framework offers a migration registry, startup introspection (up-to-date, upgrade-available, downgrade, corrupt), and dry-run/apply runners — with migrations recorded as ordinary commits, visible in log and blame.</p><div style="margin-top:8px"><span class="badge" style="position:static;font-size:9.5px;color:var(--cyan);background:#34e0e814;border:1px solid #34e0e833;padding:2px 7px;border-radius:6px">agentstategraph-migrate</span></div></div>
+    </div>
+  </div>
+
+  <!-- Group 6: Access & Integration -->
+  <div class="fgroup" data-reveal>
+    <div class="fgroup-head"><span class="fg-num">06</span><h3>Access &amp; Integration</h3><span class="line"></span></div>
+    <div class="fgrid">
+      <div class="feature"><div class="fh"><h4>MCP server — 73 tools</h4></div><p>Speak the Model Context Protocol over stdio and any MCP-capable agent — Claude, Cursor, custom orchestrators — gets the full surface immediately: state, branching, speculation, epochs, sessions, plans, policy, taint, and reminders as native tools.</p></div>
+      <div class="feature"><div class="fh"><h4>HTTP REST API</h4></div><p>Run with <code>--http</code> to expose the same operations as a CORS-enabled REST API. Health, stats, state, blame, query, diff, merge, epochs — reachable from a browser, a script, or any language without an MCP client.</p></div>
+      <div class="feature"><div class="fh"><h4>Auth, keys &amp; rate limiting</h4></div><p>The HTTP surface ships API-key authentication with per-key namespace scoping, key rotation and revocation endpoints, and built-in rate limiting — the essentials for exposing ASG to a fleet safely.</p></div>
+      <div class="feature"><div class="fh"><h4>Seven language bindings</h4></div><p>Rust is the reference implementation; Python, TypeScript, Go, and .NET/C# ride the same core over a stable C ABI, plus a WASM build for the browser. A Python agent and a Go agent can write to the same repository and read each other's intent annotations.</p></div>
+      <div class="feature"><div class="fh"><h4>Four storage backends</h4></div><p>One trait, four implementations: in-memory for tests and speculation, SQLite for single-node durability, Postgres for multi-tenant SaaS, and IndexedDB for agents running entirely in the browser. The schema is portable across all of them.</p></div>
+      <div class="feature"><div class="fh"><h4>Browser Explorer</h4></div><p>A WASM-powered interactive viewer for walking a state DAG, inspecting commits, and reading blame right in a browser tab — no backend required. Ideal for demos, debugging, and client-side prototypes.</p><div style="margin-top:8px"><a href="/explorer/" style="font-size:12px;font-weight:600">Open the Explorer →</a></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Commit anatomy -->
+<section class="section" style="background:linear-gradient(180deg, var(--bg-1), transparent)" data-reveal>
+  <div class="container">
+    <p class="kicker">Anatomy of a commit</p>
+    <h2 class="title">Every commit answers a dozen questions</h2>
+    <p class="subtitle">A Git commit answers one: <em>what changed</em>. An AgentStateGraph commit — with its structured intent — records everything a system of record has to capture when the actor is an agent.</p>
+    <div class="commit-grid">
+      <div class="cfield"><div class="cn">state_root</div><div class="cq">What changed?</div></div>
+      <div class="cfield"><div class="cn">intent</div><div class="cq">Why? (category + description)</div></div>
+      <div class="cfield"><div class="cn">reasoning</div><div class="cq">How did the agent decide?</div></div>
+      <div class="cfield"><div class="cn">confidence</div><div class="cq">How sure was it? (0.0–1.0)</div></div>
+      <div class="cfield"><div class="cn">agent_id</div><div class="cq">Who did it?</div></div>
+      <div class="cfield"><div class="cn">authority</div><div class="cq">On whose authority? (delegation chain)</div></div>
+      <div class="cfield"><div class="cn">resolution</div><div class="cq">What was accomplished? (+ deviations)</div></div>
+      <div class="cfield"><div class="cn">tool_calls</div><div class="cq">What actions produced it?</div></div>
+      <div class="cfield"><div class="cn">parent_intent</div><div class="cq">Part of which larger goal?</div></div>
+      <div class="cfield"><div class="cn">parents</div><div class="cq">What did it build on?</div></div>
+      <div class="cfield"><div class="cn">tags</div><div class="cq">How is it classified?</div></div>
+      <div class="cfield"><div class="cn">timestamp</div><div class="cq">When?</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Principles -->
+<section class="section" id="principles">
+  <div class="container" data-reveal>
+    <p class="kicker">Why it matters</p>
+    <h2 class="title">The principles a system of record is built on</h2>
+    <p class="subtitle">Features are the <em>how</em>. These are the <em>why</em> — the properties an agent application has to guarantee before anyone will trust it in production, and the reason each one is non-negotiable.</p>
+  </div>
+  <div class="principles">
+    <div class="principle" data-reveal>
+      <div class="ph"><div class="picon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9aa1ff" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/></svg></div><h3>Observability</h3></div>
+      <p class="why">You cannot operate what you cannot see. When an agent fleet is making thousands of decisions an hour, the difference between a controlled system and a runaway one is whether you can answer "what is happening right now, and what just happened?" in seconds rather than after a post-mortem.</p>
+      <p class="how"><b>In ASG:</b> every change is a queryable commit; live <code>watch</code> subscriptions, <code>stats</code>, commit graphs, and intent trees turn agent activity into something you can actually inspect.</p>
+    </div>
+    <div class="principle" data-reveal>
+      <div class="ph"><div class="picon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9aa1ff" stroke-width="1.8"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="9"/></svg></div><h3>Agent transparency</h3></div>
+      <p class="why">An agent that can't explain itself can't be trusted with anything that matters. Transparency means the reasoning behind a decision — the alternatives weighed, the confidence held, the plan followed — is a durable, inspectable record, not something trapped in an ephemeral context window that vanishes when the session ends.</p>
+      <p class="how"><b>In ASG:</b> <code>reasoning</code>, <code>confidence</code>, considered alternatives, and deviation reports are captured on every commit — the decision, not just the outcome.</p>
+    </div>
+    <div class="principle" data-reveal>
+      <div class="ph"><div class="picon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9aa1ff" stroke-width="1.8"><path d="M12 3a4 4 0 0 0-4 4c-1.5.5-3 2-3 4s1 3 2 3.5c0 2 1.5 3.5 3 3.5"/><path d="M12 3a4 4 0 0 1 4 4c1.5.5 3 2 3 4s-1 3-2 3.5c0 2-1.5 3.5-3 3.5"/><path d="M12 3v18"/></svg></div><h3>Agent memory</h3></div>
+      <p class="why">Agents that forget repeat their mistakes and lose the thread across sessions. Durable memory — persistent state, the branches explored, the plans in flight, and scheduled future work — is what lets an agent pick up where it (or another agent) left off, rather than starting cold every time.</p>
+      <p class="how"><b>In ASG:</b> state persists in a durable store; sessions preserve delegated context; reminders carry future intent forward; and soft references link memories, plans, and branches together.</p>
+    </div>
+    <div class="principle" data-reveal>
+      <div class="ph"><div class="picon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9aa1ff" stroke-width="1.8"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z"/><path d="M12 8v4l3 2"/></svg></div><h3>Provenance</h3></div>
+      <p class="why">Trust in an autonomous system requires knowing where every change came from. Without provenance, "the AI did it" is where the investigation ends. With it, every value carries its full causal chain — who set it, from what prior state, under what authority, and why — so nothing in production is unexplained.</p>
+      <p class="how"><b>In ASG:</b> content-addressing plus <code>agent_id</code>, <code>authority</code>, delegation chains, and blame give every value an unbroken, tamper-evident lineage.</p>
+    </div>
+    <div class="principle" data-reveal>
+      <div class="ph"><div class="picon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9aa1ff" stroke-width="1.8"><path d="M12 3v6M8 6l4-3 4 3"/><rect x="4" y="9" width="16" height="12" rx="2"/><path d="M9 15h6"/></svg></div><h3>Accountability</h3></div>
+      <p class="why">Human systems are governed socially — code review, PRs, someone to ask in a Slack thread. A fleet of agents making low-confidence decisions at machine scale can't be. Accountability has to be <em>mechanical</em>: enforced by the substrate itself, so a change that lacks intent, authority, or approval simply cannot be recorded as legitimate.</p>
+      <p class="how"><b>In ASG:</b> policy gating, required fields, Ed25519-signed rules, and taint enforcement make accountability a property of the system, not a matter of good behavior.</p>
+    </div>
+    <div class="principle" data-reveal>
+      <div class="ph"><div class="picon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9aa1ff" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><h3>Auditability</h3></div>
+      <p class="why">When a regulator, a customer, or your own security team asks "show me every agent change to billing last quarter, who authorized it, and prove nothing was altered," the answer has to be a report you can generate on demand — not a two-week forensics project against logs that may have already rotated away.</p>
+      <p class="how"><b>In ASG:</b> sealable epochs produce tamper-evident, independently verifiable audit bundles; unified query turns any compliance question into a single filter.</p>
+    </div>
+    <div class="principle" data-reveal>
+      <div class="ph"><div class="picon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9aa1ff" stroke-width="1.8"><path d="M4 4v6h6M20 20v-6h-6"/><path d="M20 9a8 8 0 0 0-14-3L4 8M4 15a8 8 0 0 0 14 3l2-2"/></svg></div><h3>Reproducibility</h3></div>
+      <p class="why">Debugging a non-deterministic system is impossible if you can't reconstruct the state it acted on. Reproducibility means you can return to the exact point an agent made a decision, see precisely what it saw, and replay the branch — the foundation for root-causing incidents and validating fixes.</p>
+      <p class="how"><b>In ASG:</b> immutable content-addressed history means every commit is an exact, restorable snapshot; branches and speculations let you replay any decision path.</p>
+    </div>
+    <div class="principle" data-reveal>
+      <div class="ph"><div class="picon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9aa1ff" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg></div><h3>Governance &amp; control</h3></div>
+      <p class="why">Autonomy without limits is a liability. Governance is the ability to draw hard lines — this agent may touch these paths, this class of change needs approval, this tenant is isolated from that one — and have those lines hold at machine speed, across every actor, without a human in the loop for each decision.</p>
+      <p class="how"><b>In ASG:</b> namespaces isolate tenants, policies bound what changes are permissible, taint quarantines sensitive paths, and sessions scope each agent to exactly the surface it needs.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Bindings -->
+<section class="section" id="bindings" data-reveal>
+  <div class="container">
+    <p class="kicker">Use it from anywhere</p>
+    <h2 class="title">One primitive, every language</h2>
+    <p class="subtitle">The Rust core is the single source of truth for behavior. Every binding rides the same engine and the same commit format — write from one language, read from another. Registry packages aren't published yet — clone the repo and build from source (each guide has the full steps).</p>
+    <div class="lang-grid">
+      <div class="lang"><div class="ln">Rust</div><div class="lm">reference implementation · BSL 1.1</div><pre><code>cargo add --git https://github.com/agentstatelabs/AgentStateGraph agentstategraph</code></pre></div>
+      <div class="lang"><div class="ln">Python</div><div class="lm">PyO3 · 3.10+ · maturin</div><pre><code>cd bindings/python &amp;&amp; maturin develop --release</code></pre></div>
+      <div class="lang"><div class="ln">TypeScript / Node</div><div class="lm">napi-rs native module</div><pre><code>cd bindings/typescript &amp;&amp; npm install &amp;&amp; npm run build</code></pre></div>
+      <div class="lang"><div class="ln">Go</div><div class="lm">cgo over the C ABI</div><pre><code>go get github.com/agentstatelabs/AgentStateGraph/bindings/go</code></pre></div>
+      <div class="lang"><div class="ln">.NET / C#</div><div class="lm">P/Invoke · .NET 8 &amp; 10</div><pre><code>dotnet build bindings/dotnet/AgentStateGraph</code></pre></div>
+      <div class="lang"><div class="ln">WASM / Browser</div><div class="lm">wasm-bindgen · browser, Deno, Node</div><pre><code>wasm-pack build crates/agentstategraph-wasm --target web</code></pre></div>
+      <div class="lang"><div class="ln">C FFI</div><div class="lm">stable C ABI · header + lib</div><pre><code>cargo build -p agentstategraph-ffi --release</code></pre></div>
+    </div>
+  </div>
+</section>
+
+<!-- Backends -->
+<section class="section tight" data-reveal>
+  <div class="container">
+    <p class="kicker">Store it anywhere</p>
+    <h2 class="title">Four backends, one schema</h2>
+    <p class="subtitle">Pick a backend by deployment shape, not by rewriting your app — every implementation sits behind the same storage trait and shares a portable schema.</p>
+    <div class="back-grid">
+      <div class="backend"><div class="bn">Memory</div><div class="bd">Ephemeral, in-process. Tests, speculation, caching.</div></div>
+      <div class="backend"><div class="bn">SQLite</div><div class="bd">Single-file durability with WAL concurrency. The default.</div></div>
+      <div class="backend"><div class="bn">Postgres</div><div class="bd">Connection-pooled and multi-tenant. For SaaS and enterprise.</div></div>
+      <div class="backend"><div class="bn">IndexedDB</div><div class="bd">Browser-local via WASM. Offline-first, client-side agents.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Get started -->
+<section class="section" id="start">
+  <div class="container">
+    <p class="kicker" data-reveal>Get started</p>
+    <h2 class="title" data-reveal>Connect an agent in 60 seconds</h2>
+    <p class="subtitle" data-reveal>One binary is the MCP server, the HTTP API, and the migration CLI. Point an agent at it and start recording.</p>
+    <div data-reveal>
+      <div class="terminal">
+        <div class="term-bar"><div class="tdot r"></div><div class="tdot y"></div><div class="tdot g"></div><span class="term-title">agentstategraph — zsh</span></div>
+        <pre class="term-body" id="term"></pre>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:26px" data-reveal>
+      <a class="btn btn-primary" href="/guides/quickstart/">Read the Quick Start</a>
+      <a class="btn btn-secondary" href="/reference/mcp-tools/" style="margin-left:10px">Browse all 73 tools</a>
+    </div>
+  </div>
+</section>
+
+<!-- What it is not -->
+<section class="section tight" data-reveal>
+  <div class="container" style="text-align:center">
+    <p class="kicker">Clear on scope</p>
+    <h2 class="title">What it is — and isn't</h2>
+    <p class="subtitle">AgentStateGraph is a <strong style="color:var(--txt)">state primitive</strong>: the layer a next-generation IaC tool, GitOps tool, or agent-native ops platform is built <em>on</em>. That means it is deliberately not a few things.</p>
+    <div class="not-grid">
+      <div class="notbox"><div class="nt">Not a Terraform replacement</div><div class="nd">Wrong actor model. Terraform assumes humans writing HCL and opening PRs. ASG assumes agents making low-confidence decisions at scale who must be held accountable mechanically.</div></div>
+      <div class="notbox"><div class="nt">Not a LangGraph helper</div><div class="nd">Different layer. LangGraph's <code>StateGraph</code> is an in-process dict inside one agent's run. ASG is a persistent, content-addressed substrate used <em>between and above</em> agents.</div></div>
+    </div>
+    <div style="margin-top:24px"><a class="btn btn-secondary" href="/compare/">Read the full comparison →</a></div>
+  </div>
+</section>
+
+<!-- License -->
+<section class="section" data-reveal>
+  <div class="container" style="max-width:780px;margin:0 auto">
+    <p class="kicker">License</p>
+    <h2 class="title">Why BSL 1.1?</h2>
+    <p class="subtitle" style="margin-bottom:28px">A state primitive designed to become infrastructure is a strip-mining target — hyperscalers offer it as a managed service, capture the value, and contribute nothing back. BSL 1.1 closes that gap while keeping the project free for the people who build on it.</p>
+    <div class="lic-row">
+      <div class="lic-item"><span class="ic" style="color:var(--success)">✓</span><span class="txt"><strong>Individuals, startups, and enterprises</strong> using AgentStateGraph internally — including in production — are unaffected.</span></div>
+      <div class="lic-item"><span class="ic" style="color:var(--warn)">⚠</span><span class="txt">The restriction covers <strong>one specific case</strong>: offering ASG as a hosted or managed service to third parties without a commercial agreement.</span></div>
+      <div class="lic-item"><span class="ic" style="color:var(--cyan)">↻</span><span class="txt">After <strong>four years</strong>, each version converts to <strong>Apache 2.0 permanently</strong>, with no conditions — a binding commitment, not a marketing promise.</span></div>
+    </div>
+    <div class="lic-card">
+      <h4>Why not MIT from day one?</h4>
+      <p>Because the project wouldn't survive it. An MIT-licensed infrastructure primitive that gains traction gets absorbed by a hyperscaler within 18 months. BSL 1.1 lets the project grow, stay independent, and convert to a fully permissive license once strip-mining is no longer an existential threat.</p>
+      <p>This is the same reasoning MongoDB, Elastic, and MariaDB used — with one difference: we committed to the conversion date upfront.</p>
+    </div>
+    <div style="text-align:center"><a class="btn btn-secondary" href="https://github.com/agentstatelabs/AgentStateGraph/blob/main/LICENSING.md" target="_blank">Read the full FAQ</a></div>
+  </div>
+</section>
+
+<!-- Ecosystem -->
+<section class="section tight" id="ecosystem" data-reveal>
+  <div class="container">
+    <p class="kicker">See it in action</p>
+    <h2 class="title">Built on AgentStateGraph</h2>
+    <p class="subtitle">ASG is the substrate; a growing family of applications and services use it as their system of record. Each is a working example of what native agent state looks like in practice.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:15px;max-width:var(--maxw);margin:0 auto">
+      <a href="https://github.com/agentstatelabs/AgentStateGraph" target="_blank" class="feature" style="display:block;color:inherit">
+        <div class="fh"><h4>AgentStateGraph</h4><span class="badge">substrate</span></div>
+        <p>The system of record itself — content-addressed, branchable, governable agent state, with 73 MCP tools and seven language bindings.</p>
+      </a>
+      <a href="https://github.com/agentstatelabs/agentstatedeveloper" target="_blank" class="feature" style="display:block;color:inherit">
+        <div class="fh"><h4>AgentStateDeveloper</h4><span class="badge">code context</span></div>
+        <p>A code-level context and audit overlay for agent-authored code — a decision ledger, effect declarations, and a call graph for every function, queryable by the agents writing the code and checked into git.</p>
+      </a>
+      <a href="https://threadweaver.org" target="_blank" class="feature" style="display:block;color:inherit">
+        <div class="fh"><h4>ThreadWeaver</h4><span class="badge">chat app</span></div>
+        <p>AI chat with branchable conversations, multimodal input, tool calling, and MCP — using ASG to branch, blame, and persist every thread.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="fb-logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="6" cy="6" r="2.4" fill="#6d76ff"/><circle cx="18" cy="6" r="2.4" fill="#34e0e8"/><circle cx="12" cy="18" r="2.4" fill="#a855f7"/><path d="M6 6L12 18L18 6" stroke="#33436b" stroke-width="1.4"/></svg> AgentStateGraph</div>
+      <p>The Agentic System of Record. Content-addressed, branchable, governable state for every agent and LLM application.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Product</h4>
+      <a href="https://github.com/agentstatelabs/AgentStateGraph" target="_blank">GitHub</a>
+      <a href="/guides/quickstart/">Quick Start</a>
+      <a href="/explorer/">Explorer</a>
+      <a href="https://github.com/agentstatelabs/AgentStateGraph/blob/main/CHANGELOG.md" target="_blank">Changelog</a>
+    </div>
+    <div class="footer-col">
+      <h4>Resources</h4>
+      <a href="/guides/introduction/">Documentation</a>
+      <a href="/reference/mcp-tools/">MCP Tools Reference</a>
+      <a href="/compare/">Compare</a>
+      <a href="/reference/rfc/">RFC Specification</a>
+    </div>
+    <div class="footer-col">
+      <h4>Ecosystem</h4>
+      <a href="https://github.com/agentstatelabs/agentstatedeveloper" target="_blank">AgentStateDeveloper</a>
+      <a href="https://threadweaver.org" target="_blank">ThreadWeaver</a>
+      <a href="https://github.com/agentstatelabs/AgentStateGraph/blob/main/CONTRIBUTING.md" target="_blank">Contributing</a>
+      <a href="mailto:info@agentstatelabs.com">Contact</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    AgentStateGraph v0.9.2 · <a href="https://github.com/agentstatelabs/AgentStateGraph/blob/main/LICENSE" target="_blank">BSL 1.1</a> · Rust core · 73 MCP tools · 7 bindings · 4 storage backends · HTTP API
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+  var els = document.querySelectorAll('[data-reveal]');
+  if (els.length) {
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    els.forEach(function (el) { obs.observe(el); });
+  }
+  var nav = document.querySelector('.nav'), hero = document.querySelector('.hero');
+  if (nav && hero) {
+    var hb = hero.offsetTop + hero.offsetHeight;
+    window.addEventListener('scroll', function () { nav.classList.toggle('visible', window.scrollY > hb - 120); }, { passive: true });
+  }
+  var tb = document.getElementById('term');
+  if (tb) {
+    var played = false;
+    var cmds = [
+      { p: '$ ', t: 'curl -sSL https://agentstategraph.dev/install.sh | sh', d: 18 },
+      { o: 'installed agentstategraph-mcp → ~/.local/bin', w: 320 },
+      { p: '$ ', t: 'agentstategraph-mcp --http --port 3001', d: 22 },
+      { o: 'AgentStateGraph v0.9.2\nStorage: ./agentstategraph.db (sqlite)\nMCP: 73 tools ready · HTTP API on http://0.0.0.0:3001', w: 420 },
+      { p: '$ ', t: 'curl localhost:3001/api/blame/main?path=/cluster/node-3', d: 20 },
+      { o: '{ "agent": "agent/monitor", "intent": "Fix", "confidence": 0.73,\n  "reasoning": "health check failed 3x in 60s; rerouting" }', w: 300 }
+    ];
+    function type() {
+      if (played) return; played = true; tb.textContent = '';
+      var delay = 0;
+      cmds.forEach(function (c) {
+        if (c.o) {
+          delay += c.w || 300; var d = delay;
+          setTimeout(function () { var s = document.createElement('span'); s.className = 'o'; s.textContent = c.o + '\n'; tb.appendChild(s); }, d);
+          delay += 120;
+        } else {
+          var pd = delay;
+          setTimeout(function () { var s = document.createElement('span'); s.className = 'p'; s.textContent = c.p; tb.appendChild(s); }, pd);
+          delay += 60;
+          c.t.split('').forEach(function (ch, i) {
+            var cd = delay + i * (c.d || 30);
+            setTimeout(function () { var s = document.createElement('span'); s.className = 'c'; s.textContent = ch; tb.appendChild(s); }, cd);
+          });
+          delay += c.t.length * (c.d || 30) + 220;
+          var nd = delay;
+          setTimeout(function () { tb.appendChild(document.createTextNode('\n')); }, nd);
+          delay += 60;
+        }
+      });
+      setTimeout(function () { var cur = document.createElement('span'); cur.className = 'cursor'; cur.textContent = ' '; tb.appendChild(cur); }, delay + 120);
+    }
+    var to = new IntersectionObserver(function (e) { if (e[0].isIntersecting) { type(); to.disconnect(); } }, { threshold: 0.4 });
+    to.observe(tb);
+  }
+})();
+</script>
+</body>
+</html>

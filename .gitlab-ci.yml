@@ -1,0 +1,37 @@
+# CI for AgentStateGraph-site (Astro static site in site/)
+stages:
+  - build
+
+build-site:
+  stage: build
+  image: node:22-bookworm
+  cache:
+    key:
+      files:
+        - site/package-lock.json
+    paths:
+      - site/node_modules/
+  script:
+    - cd site
+    - npm ci
+    - npm run build
+  artifacts:
+    paths:
+      - site/dist/
+    expire_in: 1 week
+# --- added by batch-publish-sites: leak-scan-gated publish to GitHub ---
+# Uses reserved stage .post (no need to touch the existing stages list).
+# Requires CI vars GITHUB_REPO, GITHUB_TOKEN, and file-var LEAKSCAN_LOCAL.
+publish-github:
+  stage: .post
+  image: alpine:latest
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main" && $GITHUB_REPO'
+  variables:
+    GIT_DEPTH: 0
+  before_script:
+    - apk add --no-cache git bash grep curl
+  script:
+    - printf '%s' "$LEAKSCAN_LOCAL" > .leakscan.local
+    - chmod +x scripts/leak-scan.sh scripts/publish-to-github.sh
+    - ./scripts/publish-to-github.sh
