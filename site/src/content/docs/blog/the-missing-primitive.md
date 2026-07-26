@@ -106,7 +106,7 @@ For enterprise adoption, work can be grouped into **epochs** -- bounded, sealabl
 
 ## Try It Now
 
-AgentStateGraph is source-available under [BSL 1.1](https://github.com/agentstatelabs/AgentStateGraph/blob/main/LICENSE) (free for all production use; converts to Apache 2.0 after four years) and available today:
+AgentStateGraph is open source under [MIT OR Apache-2.0](https://github.com/agentstatelabs/AgentStateGraph/blob/main/LICENSING.md) (free for any use, commercial or not) and available today:
 
 **As an MCP server** (connect to Claude, GPT, or any MCP agent):
 ```bash

@@ -249,7 +249,7 @@
 <!-- Hero -->
 <section class="hero">
   <div class="hero-grid"></div>
-  <span class="eyebrow"><span class="dot"></span> v0.9.2 · BSL 1.1 · Rust core</span>
+  <span class="eyebrow"><span class="dot"></span> v0.9.6 · MIT OR Apache-2.0 · Rust core</span>
   <h1><span class="grad-text">The Agentic System of Record</span><span class="sub">for every agent you build.</span></h1>
   <p class="lede">AgentStateGraph is the state substrate underneath any agent or LLM application — <strong>content-addressed, branchable, and governable</strong>. Every feature native agent interactions require, in one primitive: provenance, memory, observability, policy, and audit.</p>
   <p class="microcopy">state · intent · provenance · policy · taint · reminders · epochs · sessions</p>
@@ -467,7 +467,7 @@
     <h2 class="title">One primitive, every language</h2>
     <p class="subtitle">The Rust core is the single source of truth for behavior. Every binding rides the same engine and the same commit format — write from one language, read from another. Registry packages aren't published yet — clone the repo and build from source (each guide has the full steps).</p>
     <div class="lang-grid">
-      <div class="lang"><div class="ln">Rust</div><div class="lm">reference implementation · BSL 1.1</div><pre><code>cargo add --git https://github.com/agentstatelabs/AgentStateGraph agentstategraph</code></pre></div>
+      <div class="lang"><div class="ln">Rust</div><div class="lm">reference implementation · MIT OR Apache-2.0</div><pre><code>cargo add --git https://github.com/agentstatelabs/AgentStateGraph agentstategraph</code></pre></div>
       <div class="lang"><div class="ln">Python</div><div class="lm">PyO3 · 3.10+ · maturin</div><pre><code>cd bindings/python &amp;&amp; maturin develop --release</code></pre></div>
       <div class="lang"><div class="ln">TypeScript / Node</div><div class="lm">napi-rs native module</div><pre><code>cd bindings/typescript &amp;&amp; npm install &amp;&amp; npm run build</code></pre></div>
       <div class="lang"><div class="ln">Go</div><div class="lm">cgo over the C ABI</div><pre><code>go get github.com/agentstatelabs/AgentStateGraph/bindings/go</code></pre></div>
@@ -530,19 +530,19 @@
 <section class="section" data-reveal>
   <div class="container" style="max-width:780px;margin:0 auto">
     <p class="kicker">License</p>
-    <h2 class="title">Why BSL 1.1?</h2>
-    <p class="subtitle" style="margin-bottom:28px">A state primitive designed to become infrastructure is a strip-mining target — hyperscalers offer it as a managed service, capture the value, and contribute nothing back. BSL 1.1 closes that gap while keeping the project free for the people who build on it.</p>
+    <h2 class="title">Open at the core</h2>
+    <p class="subtitle" style="margin-bottom:28px">A system of record has to be trustable infrastructure. AgentStateGraph is dual-licensed under <strong>MIT OR Apache-2.0</strong> — genuinely open, with no usage restrictions, no conversion clock, and no fine print. Build on it in anything.</p>
     <div class="lic-row">
-      <div class="lic-item"><span class="ic" style="color:var(--success)">✓</span><span class="txt"><strong>Individuals, startups, and enterprises</strong> using AgentStateGraph internally — including in production — are unaffected.</span></div>
-      <div class="lic-item"><span class="ic" style="color:var(--warn)">⚠</span><span class="txt">The restriction covers <strong>one specific case</strong>: offering ASG as a hosted or managed service to third parties without a commercial agreement.</span></div>
-      <div class="lic-item"><span class="ic" style="color:var(--cyan)">↻</span><span class="txt">After <strong>four years</strong>, each version converts to <strong>Apache 2.0 permanently</strong>, with no conditions — a binding commitment, not a marketing promise.</span></div>
+      <div class="lic-item"><span class="ic" style="color:var(--success)">✓</span><span class="txt"><strong>Use it anywhere</strong> — internal tools, production systems, commercial products, hosted services — with no fee and no separate commercial license.</span></div>
+      <div class="lic-item"><span class="ic" style="color:var(--success)">✓</span><span class="txt"><strong>Pick either license.</strong> MIT for simplicity, or Apache-2.0 for its explicit patent grant. You choose; you don't have to satisfy both.</span></div>
+      <div class="lic-item"><span class="ic" style="color:var(--cyan)">↻</span><span class="txt"><strong>Permanent.</strong> No relicensing clause, no clock, no rug-pull. What's open stays open.</span></div>
     </div>
     <div class="lic-card">
-      <h4>Why not MIT from day one?</h4>
-      <p>Because the project wouldn't survive it. An MIT-licensed infrastructure primitive that gains traction gets absorbed by a hyperscaler within 18 months. BSL 1.1 lets the project grow, stay independent, and convert to a fully permissive license once strip-mining is no longer an existential threat.</p>
-      <p>This is the same reasoning MongoDB, Elastic, and MariaDB used — with one difference: we committed to the conversion date upfront.</p>
+      <h4>Why fully open?</h4>
+      <p>Because nobody builds their agent's state layer on infrastructure with a licensing asterisk. An open core removes that risk entirely — you can depend on ASG, fork it, ship it, and never revisit the license. That trust is what lets a primitive become infrastructure.</p>
+      <p>The open core is the whole engine — free, forever. For teams that want more, <strong>managed hosting, enterprise features, and commercial support</strong> are available on top of it. <a href="mailto:info@agentstatelabs.com">Talk to us</a> about a plan that fits. That's how the project is funded — by adding value above the core, never by restricting it.</p>
     </div>
-    <div style="text-align:center"><a class="btn btn-secondary" href="https://github.com/agentstatelabs/AgentStateGraph/blob/main/LICENSING.md" target="_blank">Read the full FAQ</a></div>
+    <div style="text-align:center"><a class="btn btn-secondary" href="https://github.com/agentstatelabs/AgentStateGraph/blob/main/LICENSING.md" target="_blank">Read the license</a></div>
   </div>
 </section>
 
@@ -599,7 +599,7 @@
     </div>
   </div>
   <div class="footer-bottom">
-    AgentStateGraph v0.9.2 · <a href="https://github.com/agentstatelabs/AgentStateGraph/blob/main/LICENSE" target="_blank">BSL 1.1</a> · Rust core · 73 MCP tools · 7 bindings · 4 storage backends · HTTP API
+    AgentStateGraph v0.9.6 · <a href="https://github.com/agentstatelabs/AgentStateGraph/blob/main/LICENSING.md" target="_blank">MIT OR Apache-2.0</a> · Rust core · 73 MCP tools · 7 bindings · 4 storage backends · HTTP API
   </div>
 </footer>
 
