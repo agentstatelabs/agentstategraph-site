@@ -33,7 +33,7 @@ Policies are **soft enforcement by default**: a `Deny` decision is recorded in t
 
 // 2. Ratify it (a human or authorized agent approves)
 // agentstategraph_policy_ratify
-{ "policy_id": "restrict-prod-deletes", "ratifier": "cbrown" }
+{ "policy_id": "restrict-prod-deletes", "ratifier": "user" }
 
 // 3. It becomes active immediately after ratification
 ```

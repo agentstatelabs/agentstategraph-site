@@ -626,7 +626,7 @@ List active agent sessions with parent-child relationships and path scoping.
     "branch": "agents/planner/workspace",
     "parent_session": null,
     "delegated_intent": "intent-001",
-    "report_to": "cbrown",
+    "report_to": "user",
     "path_scope": "/cluster",
     "created": "2026-04-06T12:00:00Z"
   }

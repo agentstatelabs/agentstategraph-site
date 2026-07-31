@@ -79,7 +79,7 @@ Set `approval_required: true` to hold a reminder in `pending_approval` state unt
 // agentstategraph_reminder_approve
 {
   "reminder_id": "prod-maintenance-window",
-  "approved_by": "cbrown"
+  "approved_by": "user"
 }
 ```
 
