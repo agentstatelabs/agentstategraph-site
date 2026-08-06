@@ -3,7 +3,7 @@ title: MCP Tools Reference
 description: Complete reference for all 73 AgentStateGraph MCP tools with parameters and examples.
 ---
 
-> **73 tools** across 12 categories. Also available as [22 HTTP REST endpoints](/guides/mcp-server/#http-rest-api) via `--http` mode. The `agentstategraph-mcp` binary additionally offers a [`migrate` subcommand](/guides/mcp-server/) for schema upgrades — it's a one-shot CLI, not an MCP tool.
+> **73 tools** across 12 categories. Also available as [19 HTTP REST endpoints](/guides/mcp-server/#http-rest-api) via `--http` mode. The `agentstategraph-mcp` binary additionally offers a [`migrate` subcommand](/guides/mcp-server/) for schema upgrades — it's a one-shot CLI, not an MCP tool.
 
 ## Tool Index
 
