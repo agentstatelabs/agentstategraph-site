@@ -50,3 +50,23 @@ ci-guard:
         echo "ERROR: GITHUB_REPO unset -> publish-github will NOT run"; exit 1
       fi
       echo "publish-github target: $GITHUB_REPO"
+
+# Explicitly dispatch the GitHub Pages deploy AFTER publish-github mirrors main
+# to GitHub. GitHub's native push trigger does not fire reliably for mirror
+# pushes, so we invoke workflow_dispatch via the API. `needs: [publish-github]`
+# guarantees the mirror lands first — otherwise the Action rebuilds stale content.
+# Requires the GH_PAT CI var (a PAT with actions:write on the target repo).
+trigger-github-pages:
+  stage: .post
+  image: curlimages/curl:latest
+  needs: ["publish-github"]
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main" && $GITHUB_REPO'
+  script:
+    - |
+      curl -fsS -X POST \
+        -H "Authorization: Bearer $GH_PAT" \
+        -H "Accept: application/vnd.github+json" \
+        https://api.github.com/repos/agentstatelabs/agentstategraph-site/actions/workflows/deploy-site.yml/dispatches \
+        -d '{"ref":"main"}'
+    - echo "Dispatched deploy-site.yml on agentstatelabs/agentstategraph-site"
