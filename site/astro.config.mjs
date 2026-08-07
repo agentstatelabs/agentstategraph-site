@@ -37,7 +37,9 @@ export default defineConfig({
 						{ label: 'Namespaces', slug: 'guides/namespaces' },
 						{ label: 'Policy', slug: 'guides/policy' },
 						{ label: 'Taint & Quarantine', slug: 'guides/taint-and-quarantine' },
+						{ label: 'Tasks & plans', slug: 'guides/tasks' },
 						{ label: 'Reminders', slug: 'guides/reminders' },
+						{ label: 'Epochs', slug: 'guides/epochs' },
 					],
 				},
 				{
