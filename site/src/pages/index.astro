@@ -297,7 +297,7 @@
       <div class="pillar">
         <div class="pi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9aa1ff" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div>
         <h3>Runs anywhere</h3>
-        <p>73 MCP tools, an HTTP API, seven language bindings, and four storage backends — from an in-browser tab to a multi-tenant Postgres cluster.</p>
+        <p>73 MCP tools, an HTTP API, eight language bindings, and four storage backends — from an in-browser tab to a multi-tenant Postgres cluster.</p>
       </div>
     </div>
   </div>
@@ -379,7 +379,7 @@
       <div class="feature"><div class="fh"><h4>MCP server — 73 tools</h4></div><p>Speak the Model Context Protocol over stdio and any MCP-capable agent — Claude, Cursor, custom orchestrators — gets the full surface immediately: state, branching, speculation, epochs, sessions, plans, policy, taint, and reminders as native tools.</p></div>
       <div class="feature"><div class="fh"><h4>HTTP REST API</h4></div><p>Run with <code>--http</code> to expose the same operations as a CORS-enabled REST API. Health, stats, state, blame, query, diff, merge, epochs — reachable from a browser, a script, or any language without an MCP client.</p></div>
       <div class="feature"><div class="fh"><h4>Auth, keys &amp; rate limiting</h4></div><p>The HTTP surface ships API-key authentication with per-key namespace scoping, key rotation and revocation endpoints, and built-in rate limiting — the essentials for exposing ASG to a fleet safely.</p></div>
-      <div class="feature"><div class="fh"><h4>Seven language bindings</h4></div><p>Rust is the reference implementation; Python, TypeScript, Go, and .NET/C# ride the same core over a stable C ABI, plus a WASM build for the browser. A Python agent and a Go agent can write to the same repository and read each other's intent annotations.</p></div>
+      <div class="feature"><div class="fh"><h4>Eight language bindings</h4></div><p>Rust is the reference implementation; Python, TypeScript, Go, .NET/C#, and Swift (macOS & iOS) ride the same core over a stable C ABI, plus a WASM build for the browser. A Python agent and a Go agent can write to the same repository and read each other's intent annotations.</p></div>
       <div class="feature"><div class="fh"><h4>Four storage backends</h4></div><p>One trait, four implementations: in-memory for tests and speculation, SQLite for single-node durability, Postgres for multi-tenant SaaS, and IndexedDB for agents running entirely in the browser. The schema is portable across all of them.</p></div>
       <div class="feature"><div class="fh"><h4>Browser Explorer</h4></div><p>A WASM-powered interactive viewer for walking a state DAG, inspecting commits, and reading blame right in a browser tab — no backend required. Ideal for demos, debugging, and client-side prototypes.</p><div style="margin-top:8px"><a href="/explorer/" style="font-size:12px;font-weight:600">Open the Explorer →</a></div></div>
     </div>
@@ -555,7 +555,7 @@
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:15px;max-width:var(--maxw);margin:0 auto">
       <a href="https://github.com/agentstatelabs/AgentStateGraph" target="_blank" class="feature" style="display:block;color:inherit">
         <div class="fh"><h4>AgentStateGraph</h4><span class="badge">substrate</span></div>
-        <p>The system of record itself — content-addressed, branchable, governable agent state, with 73 MCP tools and seven language bindings.</p>
+        <p>The system of record itself — content-addressed, branchable, governable agent state, with 73 MCP tools and eight language bindings.</p>
       </a>
       <a href="https://github.com/agentstatelabs/agentstatedeveloper" target="_blank" class="feature" style="display:block;color:inherit">
         <div class="fh"><h4>AgentStateDeveloper</h4><span class="badge">code context</span></div>
@@ -599,7 +599,7 @@
     </div>
   </div>
   <div class="footer-bottom">
-    AgentStateGraph v0.9.21 · <a href="https://github.com/agentstatelabs/AgentStateGraph/blob/main/LICENSING.md" target="_blank">MIT OR Apache-2.0</a> · Rust core · 73 MCP tools · 7 bindings · 4 storage backends · HTTP API
+    AgentStateGraph v0.9.21 · <a href="https://github.com/agentstatelabs/AgentStateGraph/blob/main/LICENSING.md" target="_blank">MIT OR Apache-2.0</a> · Rust core · 73 MCP tools · 8 bindings · 4 storage backends · HTTP API
   </div>
 </footer>
 

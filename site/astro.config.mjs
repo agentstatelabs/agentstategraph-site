@@ -27,6 +27,7 @@ export default defineConfig({
 						{ label: 'TypeScript', slug: 'guides/typescript' },
 						{ label: 'Go', slug: 'guides/go' },
 						{ label: '.NET / C#', slug: 'guides/dotnet' },
+						{ label: 'Swift (macOS / iOS)', slug: 'guides/swift' },
 						{ label: 'WASM / Browser', slug: 'guides/wasm' },
 					],
 				},
