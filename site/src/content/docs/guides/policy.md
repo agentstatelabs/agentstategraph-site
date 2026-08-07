@@ -1,6 +1,6 @@
 ---
 title: Policy
-description: Authorization and cost-of-change gating with a built-in evaluator and a pluggable external-evaluator interface (OPA/Rego today; Cedar and WASM in preview).
+description: Authorization and cost-of-change gating with a built-in evaluator and pluggable external engines — OPA/Rego, Cedar, and WASM.
 ---
 
 The `agentstategraph-policy` crate adds an authorization and cost-of-change gating layer on top of commits. Policies are stored in the state graph itself under `/_meta/policies/`, so every policy change is auditable via `log` and `blame`.
@@ -78,19 +78,42 @@ This runs both the policy check and the taint check in a single call and surface
 
 ## Evaluators
 
-All external evaluators share one pluggable `ExternalEvaluator` interface, so you can swap engines without changing how policies are stored or audited.
+The built-in selector handles most cases, but when you need a full policy
+language, three external engines plug into the same `ExternalEvaluator`
+interface — so you can swap engines without changing how policies are stored,
+ratified, or audited. All three are implemented and tested.
 
-| Backend | Status | Description |
+| Backend | Engine | Runtime requirement |
 |---|---|---|
-| Built-in | Stable | Simple subject/predicate/decision selector rules — covers most cases |
-| Rego | Stable | Open Policy Agent (OPA) policies in `.rego` format |
-| Cedar | Preview | Amazon Cedar attribute-based access control — interface in place, full evaluation lands in a follow-up |
-| WASM | Preview | Custom evaluator compiled to WASM, run in an embedded host — interface in place, full evaluation lands in a follow-up |
+| **Built-in** | Subject/predicate/decision selector rules | None — always available, and the default |
+| **Rego** | Open Policy Agent (OPA), `.rego` policies | The `opa` binary on `$PATH` |
+| **Cedar** | Amazon Cedar attribute-based access control | The `cedar` binary on `$PATH` |
+| **WASM** | A custom evaluator compiled to WebAssembly | None external — runs in an embedded `wasmtime` host |
 
-> **Note:** The built-in selector and the OPA/Rego evaluator are production-ready. The Cedar and WASM runners are wired to the external-evaluator interface but are still stubs — don't rely on them for enforcement yet.
+### Selecting an engine
+
+External engines are **opt-in at two levels**: they must be compiled in as a
+Cargo feature, and enabled at hub startup.
+
+1. **Build** the hub with the feature(s) you want: `policy-rego`,
+   `policy-cedar`, `policy-wasm`, or `all-external-evaluators` for all three.
+2. **Register** them at launch with the repeatable `--external-evaluator` flag:
+
+   ```bash
+   agentstategraph-mcp --http \
+     --external-evaluator rego \
+     --external-evaluator cedar
+   ```
+
+If a kind is requested but its feature wasn't compiled in, the hub logs a
+warning and skips it (rather than failing to start). Rego and Cedar shell out to
+their respective binaries, so those must be present on `$PATH`; the WASM runner
+is self-contained.
+
+Register a policy body for an external engine with the matching tool:
 
 ```json
-// agentstategraph_policy_cedar / agentstategraph_policy_rego
+// agentstategraph_policy_cedar   (or _policy_rego)
 {
   "policy_id": "my-cedar-policy",
   "source": "permit(principal, action == Action::\"set\", resource) when { ... };"
