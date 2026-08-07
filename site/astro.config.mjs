@@ -27,6 +27,7 @@ export default defineConfig({
 						{ label: 'TypeScript', slug: 'guides/typescript' },
 						{ label: 'Go', slug: 'guides/go' },
 						{ label: '.NET / C#', slug: 'guides/dotnet' },
+						{ label: 'Swift (macOS / iOS)', slug: 'guides/swift' },
 						{ label: 'WASM / Browser', slug: 'guides/wasm' },
 					],
 				},
@@ -36,7 +37,9 @@ export default defineConfig({
 						{ label: 'Namespaces', slug: 'guides/namespaces' },
 						{ label: 'Policy', slug: 'guides/policy' },
 						{ label: 'Taint & Quarantine', slug: 'guides/taint-and-quarantine' },
+						{ label: 'Tasks & plans', slug: 'guides/tasks' },
 						{ label: 'Reminders', slug: 'guides/reminders' },
+						{ label: 'Epochs', slug: 'guides/epochs' },
 					],
 				},
 				{
