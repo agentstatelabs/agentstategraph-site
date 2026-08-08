@@ -1,47 +1,86 @@
-/* AgentStateGraph docs theme — fresh modern-dark, cohesive with the homepage.
-   Indigo → electric-cyan accent on a deep slate background. */
+/*
+ * AgentStateGraph docs theme — modeled on the CTXone brand system.
+ * Near-black surfaces (#0a0a0a), a blue accent (#3b82f6 / #93c5fd),
+ * light-gray body text, and the Apple/system font stack. Dark-only:
+ * the palette is applied to both themes so the brand stays consistent
+ * even when a visitor prefers light. (If a real light mode is added
+ * later, restore Starlight's light defaults in the [data-theme='light']
+ * block below.)
+ *
+ * Shared brand tokens live under --asg-* and are mapped onto Starlight's
+ * --sl-* variables so both themes render the same.
+ */
 
 :root {
-	/* Accent (indigo) */
-	--sl-color-accent-low: #1b2350;
-	--sl-color-accent: #6d76ff;
-	--sl-color-accent-high: #b9bdff;
+	/* Brand palette (lifted from the CTXone system) */
+	--asg-bg: #0a0a0a;
+	--asg-panel: #111111;
+	--asg-panel-hi: #151515;
+	--asg-border: #222222;
+	--asg-border-hi: #333333;
+	--asg-border-lo: #1a1a1a;
+	--asg-text: #e0e0e0;
+	--asg-text-dim: #888888;
+	--asg-text-faint: #555555;
+	--asg-code: #a5d6a7;
+	--asg-accent: #3b82f6;
+	--asg-accent-hover: #2563eb;
+	--asg-accent-dim: #1e3a5f;
+	--asg-accent-text: #93c5fd;
 
-	/* Text */
-	--sl-color-white: #e9eefb;
-	--sl-color-gray-1: #d3daee;
-	--sl-color-gray-2: #9aa7c4;
-	--sl-color-gray-3: #616f92;
-
-	--sl-font-system: 'Inter', system-ui, -apple-system, sans-serif;
+	--sl-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+		'Helvetica Neue', Arial, sans-serif;
+	--sl-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+		'Liberation Mono', 'Courier New', monospace;
 }
 
-/* Dark theme surfaces (default). */
-:root[data-theme='dark'] {
-	--sl-color-bg: #070a12;
-	--sl-color-bg-nav: rgba(7, 10, 18, 0.78);
-	--sl-color-bg-sidebar: #0c1120;
-	--sl-color-bg-inline-code: #6d76ff1f;
-	--sl-color-hairline: #212c46;
-	--sl-color-hairline-light: #212c46;
-	--sl-color-hairline-shade: #1a2338;
-	--sl-color-text: #cdd6ec;
-	--sl-color-text-accent: #9aa1ff;
-	--sl-color-gray-4: #3a4a72;
-	--sl-color-gray-5: #212c46;
-	--sl-color-gray-6: #111a2e;
-	--sl-color-gray-7: #0c1120;
+/* Map brand tokens onto Starlight's variables for both themes. */
+:root,
+:root[data-theme='dark'],
+:root[data-theme='light'] {
+	/* Backgrounds */
+	--sl-color-bg: var(--asg-bg);
+	--sl-color-bg-nav: var(--asg-bg);
+	--sl-color-bg-sidebar: var(--asg-bg);
+	--sl-color-bg-inline-code: var(--asg-panel);
+	--sl-color-bg-accent: var(--asg-accent-dim);
+
+	/* Text ramp */
+	--sl-color-white: #ffffff;
+	--sl-color-gray-1: #e0e0e0;
+	--sl-color-gray-2: #c8c8c8;
+	--sl-color-gray-3: #888888;
+	--sl-color-gray-4: #666666;
+	--sl-color-gray-5: #444444;
+	--sl-color-gray-6: #222222;
+	--sl-color-gray-7: #151515;
+	--sl-color-black: var(--asg-bg);
+
+	/* Accent */
+	--sl-color-accent-low: var(--asg-accent-dim);
+	--sl-color-accent: var(--asg-accent);
+	--sl-color-accent-high: var(--asg-accent-text);
+
+	/* Semantic text */
+	--sl-color-text: var(--asg-text);
+	--sl-color-text-accent: var(--asg-accent-text);
+	--sl-color-text-invert: var(--asg-bg);
+
+	/* Hairlines */
+	--sl-color-hairline-light: var(--asg-border);
+	--sl-color-hairline: var(--asg-border-lo);
+	--sl-color-hairline-shade: var(--asg-border-hi);
 }
 
-/* Subtle ambient glow behind the whole doc surface, matching the homepage. */
-:root[data-theme='dark'] body {
+/* Ambient blue glow behind the doc surface, echoing the CTXone accent. */
+body {
 	background-image:
-		radial-gradient(60rem 40rem at 100% -6%, #6d76ff0f, transparent 60%),
-		radial-gradient(50rem 40rem at 0% 4%, #34e0e80c, transparent 55%);
+		radial-gradient(60rem 40rem at 100% -6%, #3b82f612, transparent 60%),
+		radial-gradient(50rem 40rem at 0% 4%, #1e3a5f14, transparent 55%);
 	background-attachment: fixed;
 }
 
-/* Gradient-adjacent site title in the header. */
+/* Site title in the header. */
 .site-title {
 	font-weight: 700;
 	letter-spacing: -0.3px;
@@ -49,14 +88,19 @@
 
 /* Links */
 .sl-markdown-content a:not(:where(.not-content *)) {
-	color: var(--sl-color-accent-high);
+	color: var(--asg-accent-text);
 	text-underline-offset: 3px;
+	transition: color 0.12s;
+}
+.sl-markdown-content a:not(:where(.not-content *)):hover {
+	color: #bfdbfe;
 }
 
-/* Inline code with a hint of accent. */
+/* Inline code — CTXone's green mono on a dark panel. */
 .sl-markdown-content code:not(:where(.not-content *)) {
-	color: #b9bdff;
-	border: 1px solid #6d76ff2e;
+	color: var(--asg-code);
+	background: var(--asg-panel);
+	border: 1px solid var(--asg-border);
 	border-radius: 5px;
 	padding: 0.1em 0.35em;
 }
@@ -64,6 +108,7 @@
 /* Headings get a touch more presence. */
 .sl-markdown-content :is(h1, h2, h3) {
 	letter-spacing: -0.4px;
+	color: #ffffff;
 }
 .sl-markdown-content h2 {
 	border-top: 1px solid var(--sl-color-hairline);
@@ -73,20 +118,23 @@
 /* Sidebar active item highlight. */
 .sidebar-content a[aria-current='page'],
 .sidebar-content a[aria-current='page']:hover {
-	background: linear-gradient(90deg, #6d76ff26, #34e0e80f);
+	background: var(--asg-accent-dim);
 	border-radius: 7px;
-	color: #fff;
+	color: #ffffff;
 }
 
-/* Tables: cohesive borders. */
+/* Tables: cohesive borders on dark panels. */
 .sl-markdown-content table {
-	border: 1px solid var(--sl-color-hairline);
+	border: 1px solid var(--asg-border);
 	border-radius: 8px;
 	overflow: hidden;
 }
 .sl-markdown-content th {
-	background: #111a2e;
-	color: var(--sl-color-white);
+	background: var(--asg-panel-hi);
+	color: #ffffff;
+}
+.sl-markdown-content td {
+	border-color: var(--asg-border-lo);
 }
 
 /* Rounded asides. */
@@ -94,9 +142,9 @@
 	border-radius: 10px;
 }
 
-/* Code blocks: deeper background to match the terminal aesthetic. */
-:root[data-theme='dark'] .expressive-code .frame pre,
-:root[data-theme='dark'] .sl-markdown-content pre {
-	background: #070a12 !important;
-	border: 1px solid var(--sl-color-hairline);
+/* Code blocks: deepest background to match the terminal aesthetic. */
+.expressive-code .frame pre,
+.sl-markdown-content pre {
+	background: var(--asg-bg) !important;
+	border: 1px solid var(--asg-border);
 }

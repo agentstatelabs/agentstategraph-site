@@ -5,6 +5,8 @@ description: Ref-layer isolation for multi-project and multi-tenant deployments.
 
 Namespaces give every project or tenant its own isolated ref space. Branches, commits, and state in namespace `tenant-a` are completely invisible to `tenant-b` — they share storage but not refs.
 
+> **Availability:** namespaces are part of the advanced repository ABI. They are exposed over MCP and the HTTP API, and in the Rust, C FFI, and Swift bindings. The Python, TypeScript, WASM, Go, and .NET bindings do not expose namespaces yet — see the [binding capability matrix](/reference/capabilities/).
+
 ## Creating a namespace
 
 ```json

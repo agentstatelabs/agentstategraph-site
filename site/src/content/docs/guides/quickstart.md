@@ -3,6 +3,31 @@ title: Quick Start
 description: Get AgentStateGraph running in under 5 minutes.
 ---
 
+## Fastest: prebuilt binary or Docker
+
+No Rust toolchain required. The install script detects your platform, downloads
+the prebuilt binary, and installs it to `~/.local/bin`:
+
+```bash
+curl -sSL https://agentstategraph.dev/install.sh | sh
+```
+
+```bash
+agentstategraph-mcp --http --port 3001
+curl http://localhost:3001/api/health
+```
+
+Or run it in a container:
+
+```bash
+docker run -p 3001:3001 ghcr.io/agentstatelabs/agentstategraph --http
+# Or with persistent storage:
+docker compose up -d
+```
+
+The options below build from source — reach for them when you want to embed the
+library, hack on the crates, or use a language binding.
+
 ## Option 1: MCP Server (connect to Claude, GPT, any agent)
 
 ```bash
@@ -11,6 +36,9 @@ cd AgentStateGraph
 cargo build --release -p agentstategraph-mcp
 cargo run --release -p agentstategraph-mcp
 ```
+
+If you installed via the script above, the server is already on your `PATH` —
+just run `agentstategraph-mcp` and skip the build.
 
 Add to Claude Code config:
 ```json

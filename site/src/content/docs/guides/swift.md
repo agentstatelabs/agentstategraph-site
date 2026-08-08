@@ -28,7 +28,7 @@ target's dependencies:
 
 ```swift
 .package(
-    url: "https://github.com/agentstatelabs/agentstategraph.git",
+    url: "https://github.com/agentstatelabs/AgentStateGraph.git",
     from: "0.9.21"
 )
 ```
