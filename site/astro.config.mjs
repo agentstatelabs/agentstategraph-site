@@ -23,6 +23,7 @@ export default defineConfig({
 					label: 'Language Guides',
 					items: [
 						{ label: 'MCP Server', slug: 'guides/mcp-server' },
+						{ label: 'Rust', slug: 'guides/rust' },
 						{ label: 'Python', slug: 'guides/python' },
 						{ label: 'TypeScript', slug: 'guides/typescript' },
 						{ label: 'Go', slug: 'guides/go' },
