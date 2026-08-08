@@ -11,11 +11,14 @@ All state is composed of **Objects** — either atoms (null, bool, int, float, s
 
 A **Commit** links a state tree to its history and provenance. Beyond git's tree + parents + message, AgentStateGraph commits carry:
 
+- **state_root** — the content-addressed hash of the state tree (what changed)
 - **agent_id** — who performed the action
 - **authority** — who authorized it, with delegation chain
 - **intent** — structured "why" with category, description, tags
 - **reasoning** — the agent's chain-of-thought
 - **confidence** — self-assessed certainty (0.0-1.0)
+- **resolution** — what was accomplished, and any deviations from intent
+- **notification** — who was informed of the change
 - **tool_calls** — what actions produced this state change
 
 ## Intent Categories

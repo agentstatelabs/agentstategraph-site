@@ -36,6 +36,7 @@ export default defineConfig({
 					label: 'Governance & Scheduling',
 					items: [
 						{ label: 'Namespaces', slug: 'guides/namespaces' },
+						{ label: 'Sessions', slug: 'guides/sessions' },
 						{ label: 'Policy', slug: 'guides/policy' },
 						{ label: 'Taint & Quarantine', slug: 'guides/taint-and-quarantine' },
 						{ label: 'Tasks & plans', slug: 'guides/tasks' },
@@ -47,6 +48,7 @@ export default defineConfig({
 					label: 'Reference',
 					items: [
 						{ label: 'MCP Tools (73)', slug: 'reference/mcp-tools' },
+						{ label: 'Binding Capabilities', slug: 'reference/capabilities' },
 						{ label: 'RFC Specification', slug: 'reference/rfc' },
 					],
 				},
