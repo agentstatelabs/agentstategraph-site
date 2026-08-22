@@ -1,3 +1,6 @@
 
 # org leak patterns (CI var, never public)
 .leakscan.local
+
+# Agent session scratch (launch.json, worktrees)
+.claude/
