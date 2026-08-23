@@ -77,6 +77,13 @@ const year = new Date().getFullYear();
     .nav-links { display: flex; gap: 26px; align-items: center; }
     .nav-links a { color: var(--txt-2); font-size: 13.5px; font-weight: 500; transition: color .2s; }
     .nav-links a:hover { color: var(--txt); }
+    /* Parent-brand — see agentstatelabs-site/BRANDING.md. ASG uses --txt/--txt-2. */
+    .nav-asl { opacity: 0.75; }
+    .nav-asl:hover { opacity: 1; }
+    .parent-brand { display: flex; align-items: center; justify-content: center; gap: 8px; border-top: none !important; padding-top: 0 !important; }
+    .parent-brand a { color: var(--txt); font-weight: 600; }
+    /* ASL's neutral gradient, not ASG's blue, so it reads as parent brand. */
+    .asl-glyph { width: 15px; height: 15px; border-radius: 4px; flex-shrink: 0; background: linear-gradient(135deg, #64748b, #e2e8f0); }
     .nav-links .ghbtn { padding: 7px 15px; border: 1px solid var(--border-hi); border-radius: 8px; color: var(--txt); }
     .nav-links .ghbtn:hover { border-color: var(--indigo); }
 
@@ -259,6 +266,7 @@ const year = new Date().getFullYear();
       <a href="#principles">Principles</a>
       <a href="/explorer/">Explorer</a>
       <a href="/guides/introduction/">Docs</a>
+      <a class="nav-asl" href="https://agentstatelabs.com/" target="_blank" rel="noopener">AgentStateLabs</a>
       <a class="ghbtn" href="https://github.com/agentstatelabs/AgentStateGraph" target="_blank">GitHub</a>
     </div>
   </div>
@@ -620,6 +628,11 @@ const year = new Date().getFullYear();
       <a href="https://github.com/agentstatelabs/AgentStateGraph/blob/main/CONTRIBUTING.md" target="_blank">Contributing</a>
       <a href="mailto:info@agentstatelabs.com">Contact</a>
     </div>
+  </div>
+  <div class="footer-bottom parent-brand">
+    <span class="asl-glyph"></span>
+    A product of
+    <a href="https://agentstatelabs.com/" target="_blank" rel="noopener">AgentStateLabs</a>
   </div>
   <div class="footer-bottom">
     AgentStateGraph v0.9.21 · <a href="https://github.com/agentstatelabs/AgentStateGraph/blob/main/LICENSING.md" target="_blank">MIT OR Apache-2.0</a> · Rust core · 73 MCP tools · 8 bindings · 4 storage backends · HTTP API
