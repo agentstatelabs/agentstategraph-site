@@ -498,7 +498,7 @@ const year = new Date().getFullYear();
       <div class="lang"><div class="ln">TypeScript / Node</div><div class="lm">napi-rs native module</div><pre><code>cd bindings/typescript &amp;&amp; npm install &amp;&amp; npm run build</code></pre></div>
       <div class="lang"><div class="ln">Go</div><div class="lm">cgo over the C ABI</div><pre><code>go get github.com/agentstatelabs/AgentStateGraph/bindings/go</code></pre></div>
       <div class="lang"><div class="ln">.NET / C#</div><div class="lm">P/Invoke · .NET 8 &amp; 10</div><pre><code>dotnet build bindings/dotnet/AgentStateGraph</code></pre></div>
-      <div class="lang"><div class="ln">Swift</div><div class="lm">SwiftPM · macOS &amp; iOS · XCFramework</div><pre><code>.package(url: "…/AgentStateGraph.git", from: "0.9.21")</code></pre></div>
+      <div class="lang"><div class="ln">Swift</div><div class="lm">SwiftPM · macOS &amp; iOS · XCFramework</div><pre><code>.package(url: "…/AgentStateGraph.git", from: "1.0.0")</code></pre></div>
       <div class="lang"><div class="ln">WASM / Browser</div><div class="lm">wasm-bindgen · browser, Deno, Node</div><pre><code>wasm-pack build crates/agentstategraph-wasm --target web</code></pre></div>
       <div class="lang"><div class="ln">C FFI</div><div class="lm">stable C ABI · header + lib</div><pre><code>cargo build -p agentstategraph-ffi --release</code></pre></div>
     </div>
