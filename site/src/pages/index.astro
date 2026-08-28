@@ -275,7 +275,7 @@ const year = new Date().getFullYear();
 <!-- Hero -->
 <section class="hero">
   <div class="hero-grid"></div>
-  <span class="eyebrow"><span class="dot"></span> v1.0.0 · MIT OR Apache-2.0 · Rust core</span>
+  <span class="eyebrow"><span class="dot"></span> v1.1.0 · MIT OR Apache-2.0 · Rust core</span>
   <h1><span class="grad-text">The Agentic Substrate</span><span class="sub">for every agent project you build.</span></h1>
   <p class="lede">AgentStateGraph is the state substrate underneath any agent or LLM application — <strong>content-addressed, branchable, and governable</strong>. Every feature native agent interactions require, in one primitive: provenance, memory, observability, policy, and audit.</p>
   <p class="microcopy">state · intent · provenance · policy · taint · reminders · epochs · sessions</p>
@@ -498,7 +498,7 @@ const year = new Date().getFullYear();
       <div class="lang"><div class="ln">TypeScript / Node</div><div class="lm">napi-rs native module</div><pre><code>cd bindings/typescript &amp;&amp; npm install &amp;&amp; npm run build</code></pre></div>
       <div class="lang"><div class="ln">Go</div><div class="lm">cgo over the C ABI</div><pre><code>go get github.com/agentstatelabs/AgentStateGraph/bindings/go</code></pre></div>
       <div class="lang"><div class="ln">.NET / C#</div><div class="lm">P/Invoke · .NET 8 &amp; 10</div><pre><code>dotnet build bindings/dotnet/AgentStateGraph</code></pre></div>
-      <div class="lang"><div class="ln">Swift</div><div class="lm">SwiftPM · macOS &amp; iOS · XCFramework</div><pre><code>.package(url: "…/AgentStateGraph.git", from: "1.0.0")</code></pre></div>
+      <div class="lang"><div class="ln">Swift</div><div class="lm">SwiftPM · macOS &amp; iOS · XCFramework</div><pre><code>.package(url: "…/AgentStateGraph.git", from: "1.1.0")</code></pre></div>
       <div class="lang"><div class="ln">WASM / Browser</div><div class="lm">wasm-bindgen · browser, Deno, Node</div><pre><code>wasm-pack build crates/agentstategraph-wasm --target web</code></pre></div>
       <div class="lang"><div class="ln">C FFI</div><div class="lm">stable C ABI · header + lib</div><pre><code>cargo build -p agentstategraph-ffi --release</code></pre></div>
     </div>
@@ -635,7 +635,7 @@ const year = new Date().getFullYear();
     <a href="https://agentstatelabs.com/" target="_blank" rel="noopener">AgentStateLabs</a>
   </div>
   <div class="footer-bottom">
-    AgentStateGraph v1.0.0 · <a href="https://github.com/agentstatelabs/AgentStateGraph/blob/main/LICENSING.md" target="_blank">MIT OR Apache-2.0</a> · Rust core · 73 MCP tools · 8 bindings · 4 storage backends · HTTP API
+    AgentStateGraph v1.1.0 · <a href="https://github.com/agentstatelabs/AgentStateGraph/blob/main/LICENSING.md" target="_blank">MIT OR Apache-2.0</a> · Rust core · 73 MCP tools · 8 bindings · 4 storage backends · HTTP API
   </div>
   <div class="footer-bottom">&copy; {year} AgentStateLabs, LLC.</div>
 </footer>
@@ -658,7 +658,7 @@ const year = new Date().getFullYear();
       { p: '$ ', t: 'curl -sSL https://agentstategraph.dev/install.sh | sh', d: 18 },
       { o: 'installed agentstategraph-mcp → ~/.local/bin', w: 320 },
       { p: '$ ', t: 'agentstategraph-mcp --http --port 3001', d: 22 },
-      { o: 'AgentStateGraph v1.0.0\nStorage: ./agentstategraph.db (sqlite)\nMCP: 73 tools ready · HTTP API on http://0.0.0.0:3001', w: 420 },
+      { o: 'AgentStateGraph v1.1.0\nStorage: ./agentstategraph.db (sqlite)\nMCP: 73 tools ready · HTTP API on http://0.0.0.0:3001', w: 420 },
       { p: '$ ', t: 'curl localhost:3001/api/blame/main?path=/cluster/node-3', d: 20 },
       { o: '{ "agent": "agent/monitor", "intent": "Fix", "confidence": 0.73,\n  "reasoning": "health check failed 3x in 60s; rerouting" }', w: 300 }
     ];
