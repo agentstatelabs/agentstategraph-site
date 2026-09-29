@@ -275,7 +275,7 @@ const year = new Date().getFullYear();
 <!-- Hero -->
 <section class="hero">
   <div class="hero-grid"></div>
-  <span class="eyebrow"><span class="dot"></span> v1.1.0 · MIT OR Apache-2.0 · Rust core</span>
+  <span class="eyebrow"><span class="dot"></span> <span data-release="agentstategraph">v1.1.0</span> · MIT OR Apache-2.0 · Rust core</span>
   <h1><span class="grad-text">The Agentic Substrate</span><span class="sub">for every agent project you build.</span></h1>
   <p class="lede">AgentStateGraph is the state substrate underneath any agent or LLM application — <strong>content-addressed, branchable, and governable</strong>. Every feature native agent interactions require, in one primitive: provenance, memory, observability, policy, and audit.</p>
   <p class="microcopy">state · intent · provenance · policy · taint · reminders · epochs · sessions</p>
@@ -635,7 +635,7 @@ const year = new Date().getFullYear();
     <a href="https://agentstatelabs.com/" target="_blank" rel="noopener">AgentStateLabs</a>
   </div>
   <div class="footer-bottom">
-    AgentStateGraph v1.1.0 · <a href="https://github.com/agentstatelabs/AgentStateGraph/blob/main/LICENSING.md" target="_blank">MIT OR Apache-2.0</a> · Rust core · 73 MCP tools · 8 bindings · 4 storage backends · HTTP API
+    AgentStateGraph <span data-release="agentstategraph">v1.1.0</span> · <a href="https://github.com/agentstatelabs/AgentStateGraph/blob/main/LICENSING.md" target="_blank">MIT OR Apache-2.0</a> · Rust core · 73 MCP tools · 8 bindings · 4 storage backends · HTTP API
   </div>
   <div class="footer-bottom">&copy; {year} AgentStateLabs, LLC.</div>
 </footer>
@@ -651,6 +651,16 @@ const year = new Date().getFullYear();
     els.forEach(function (el) { obs.observe(el); });
   }
   // Nav is permanently visible (sticky) — no scroll toggle needed.
+  // The current release lives in https://agentstatelabs.com/releases.json so a
+  // version bump does not need a site deploy. The markup is the fallback.
+  fetch('https://agentstatelabs.com/releases.json', { cache: 'no-cache' })
+    .then(function (r) { return r.json(); })
+    .then(function (v) {
+      document.querySelectorAll('[data-release]').forEach(function (el) {
+        if (v[el.dataset.release]) el.textContent = v[el.dataset.release];
+      });
+    })
+    .catch(function () {});
   var tb = document.getElementById('term');
   if (tb) {
     var played = false;
@@ -664,6 +674,8 @@ const year = new Date().getFullYear();
     ];
     function type() {
       if (played) return; played = true; tb.textContent = '';
+      var ver = document.querySelector('[data-release="agentstategraph"]').textContent;
+      cmds[3].o = cmds[3].o.replace('v1.1.0', ver);
       var delay = 0;
       cmds.forEach(function (c) {
         if (c.o) {
