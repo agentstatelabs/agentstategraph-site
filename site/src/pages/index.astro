@@ -275,7 +275,7 @@ const year = new Date().getFullYear();
 <!-- Hero -->
 <section class="hero">
   <div class="hero-grid"></div>
-  <span class="eyebrow"><span class="dot"></span> <span data-release="agentstategraph">v1.2.8</span> · MIT OR Apache-2.0 · Rust core</span>
+  <span class="eyebrow"><span class="dot"></span> <span data-release="agentstategraph">v1.3.0</span> · MIT OR Apache-2.0 · Rust core</span>
   <h1><span class="grad-text">The Agentic Substrate</span><span class="sub">for every agent project you build.</span></h1>
   <p class="lede">AgentStateGraph is the state substrate underneath any agent or LLM application — <strong>content-addressed, branchable, and governable</strong>. Every feature native agent interactions require, in one primitive: provenance, memory, observability, policy, and audit.</p>
   <p class="microcopy">state · intent · provenance · policy · taint · reminders · epochs · sessions</p>
@@ -286,7 +286,7 @@ const year = new Date().getFullYear();
   </div>
 
   <div class="stats">
-    <div class="stat"><div class="n grad-text">73</div><div class="l">MCP tools</div></div>
+    <div class="stat"><div class="n grad-text">77</div><div class="l">MCP tools</div></div>
     <div class="stat"><div class="n grad-text">8</div><div class="l">Language bindings</div></div>
     <div class="stat"><div class="n grad-text">4</div><div class="l">Storage backends</div></div>
     <div class="stat"><div class="n grad-text">15</div><div class="l">Modular crates</div></div>
@@ -323,7 +323,7 @@ const year = new Date().getFullYear();
       <div class="pillar">
         <div class="pi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#93c5fd" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div>
         <h3>Runs anywhere</h3>
-        <p>73 MCP tools, an HTTP API, eight language bindings, and four storage backends — from an in-browser tab to a multi-tenant Postgres cluster.</p>
+        <p>77 MCP tools, an HTTP API, eight language bindings, and four storage backends — from an in-browser tab to a Postgres database shared by many tenants.</p>
       </div>
     </div>
   </div>
@@ -370,7 +370,7 @@ const year = new Date().getFullYear();
       <div class="feature"><div class="fh"><h4>Sessions &amp; delegation</h4></div><p>A durable session records a sub-agent's context: its working branch, the intent it was delegated, who it reports to, and its path or namespace scope. When an orchestrator spiders one goal into dozens of agent sessions, the entire tree persists instead of evaporating with the conversation.</p></div>
       <div class="feature"><div class="fh"><h4>Authority &amp; delegation chains</h4></div><p>Every change records who authorized it, with the full delegation lineage back to the originating principal. "The agent did it" is never the end of the trail — you can always follow the chain to the human or policy that permitted the action.</p></div>
       <div class="feature"><div class="fh"><h4>Plans &amp; tasks</h4></div><p>A shared plan/task primitive with a strict state machine (<code>pending → in_progress → done</code>), agent assignment, blockers, and priorities. Completion requires an attached <code>Proof</code> — a commit, file, test, or URL — so "done" means verifiable, not merely claimed.</p><div style="margin-top:8px"><span class="badge" style="position:static;font-size:9.5px;color:var(--cyan);background:#60a5fa14;border:1px solid #60a5fa33;padding:2px 7px;border-radius:6px">agentstategraph-tasks</span></div></div>
-      <div class="feature"><div class="fh"><h4>Namespaces</h4></div><p>A ref-layer isolation boundary that keeps projects and tenants fully separate within one store. Branches in different namespaces never collide, cross-namespace merges are denied by default, and any operation can override its namespace per call for multi-tenant deployments.</p></div>
+      <div class="feature"><div class="fh"><h4>Namespaces</h4></div><p>A separate set of branches per project, in one store. Branches in different namespaces can share names without colliding, and ref-touching operations can pick their namespace per call. Namespaces share the store's commits; an API key bound to a namespace confines a client to it.</p></div>
       <div class="feature"><div class="fh"><h4>Epochs</h4></div><p>Group a bounded segment of work, then <code>seal</code> it into a tamper-evident bundle with a Merkle root hash. Sealed epochs export as self-contained, independently verifiable audit packages — hand one to a regulator and they can confirm nothing was altered.</p></div>
     </div>
   </div>
@@ -379,7 +379,7 @@ const year = new Date().getFullYear();
   <div class="fgroup" data-reveal>
     <div class="fgroup-head"><span class="fg-num">04</span><h3>Governance &amp; Safety</h3><span class="line"></span></div>
     <div class="fgrid">
-      <div class="feature"><div class="fh"><h4>Policy engine</h4></div><p>Author rules that gate changes on authorization <em>and</em> cost-of-change. A proposed change is evaluated into an <code>Allow</code>, <code>Deny</code>, or <code>RequireApproval</code> decision, with fallback actions (continue, queue, defer, reject) for the approval path. Soft enforcement plus a complete audit trail of every decision.</p></div>
+      <div class="feature"><div class="fh"><h4>Policy engine</h4></div><p>Author rules that gate changes on authorization <em>and</em> cost-of-change. A proposed change is evaluated into an <code>Allow</code>, <code>Deny</code>, or <code>RequireApproval</code> decision, with fallback actions (block, run a named alternative, pick the lowest-risk alternative, keep the current state, delegate) for the approval path. Advisory: the caller acts on the decision, and the MCP <code>commit_spec</code> gate refuses a speculation that policy denies.</p></div>
       <div class="feature"><div class="fh"><h4>Policy lifecycle &amp; signing</h4></div><p>Policies move through <code>propose → ratify → supersede</code>, each step a first-class commit. Ratified policies can be signed with Ed25519 over canonical JSON, so the rules governing your fleet are themselves tamper-evident and attributable.</p></div>
       <div class="feature"><div class="fh"><h4>Pluggable evaluators</h4></div><p>The built-in selector DSL covers most rules, but you can plug in mature policy languages: an OPA/<b>Rego</b> evaluator ships today, with Cedar and sandboxed WASM runners on the same external-evaluator interface.</p></div>
       <div class="feature"><div class="fh"><h4>Taint &amp; quarantine</h4></div><p>Mark a path as degraded, sensitive, or under review. Effects range from advisory <code>Warn</code> to hard <code>Block</code>, a <code>Review</code> gate that demands ≥0.9 confidence, or <code>Isolate</code> to hide a path from queries. Enforced by a pre-commit sweep that walks the path's ancestors.</p></div>
@@ -402,11 +402,11 @@ const year = new Date().getFullYear();
   <div class="fgroup" data-reveal>
     <div class="fgroup-head"><span class="fg-num">06</span><h3>Access &amp; Integration</h3><span class="line"></span></div>
     <div class="fgrid">
-      <div class="feature"><div class="fh"><h4>MCP server — 73 tools</h4></div><p>Speak the Model Context Protocol over stdio and any MCP-capable agent — Claude, Cursor, custom orchestrators — gets the full surface immediately: state, branching, speculation, epochs, sessions, plans, policy, taint, and reminders as native tools.</p></div>
-      <div class="feature"><div class="fh"><h4>HTTP REST API</h4></div><p>Run with <code>--http</code> to expose the same operations as a CORS-enabled REST API. Health, stats, state, blame, query, diff, merge, epochs — reachable from a browser, a script, or any language without an MCP client.</p></div>
-      <div class="feature"><div class="fh"><h4>Auth, keys &amp; rate limiting</h4></div><p>The HTTP surface ships API-key authentication with per-key namespace scoping, key rotation and revocation endpoints, and built-in rate limiting — the essentials for exposing ASG to a fleet safely.</p></div>
+      <div class="feature"><div class="fh"><h4>MCP server — 77 tools</h4></div><p>Speak the Model Context Protocol over stdio and any MCP-capable agent — Claude, Cursor, custom orchestrators — gets the full surface immediately: state, branching, speculation, epochs, sessions, garbage collection and history, plans, policy, taint, and reminders as native tools.</p></div>
+      <div class="feature"><div class="fh"><h4>HTTP REST API</h4></div><p>Run with <code>--http</code> to expose the same operations as a REST API. Health, readiness, stats, state, blame, query, diff, merge, epochs — reachable from a script or any language without an MCP client. Errors carry stable codes and a trace id. Browser pages from localhost can call it; other origins need <code>--cors-origin</code>.</p></div>
+      <div class="feature"><div class="fh"><h4>Auth, keys &amp; rate limiting</h4></div><p>The HTTP surface ships API-key authentication with keys stored hashed, each bound to a tenant and optionally a namespace, key rotation and revocation endpoints, built-in rate limiting, and request body, timeout and concurrency limits — the essentials for exposing ASG to a fleet safely.</p></div>
       <div class="feature"><div class="fh"><h4>Eight language bindings</h4></div><p>Rust is the reference implementation; Python, TypeScript, Go, .NET/C#, and Swift (macOS & iOS) ride the same core over a stable C ABI, plus a WASM build for the browser. A Python agent and a Go agent can write to the same repository and read each other's intent annotations.</p></div>
-      <div class="feature"><div class="fh"><h4>Four storage backends</h4></div><p>One trait, four implementations: in-memory for tests and speculation, SQLite for single-node durability, Postgres for multi-tenant SaaS, and IndexedDB for agents running entirely in the browser. The schema is portable across all of them.</p></div>
+      <div class="feature"><div class="fh"><h4>Four storage backends</h4></div><p>One trait, four implementations: in-memory for tests and speculation, SQLite for single-node durability, Postgres for many tenants partitioned in a shared database, and IndexedDB for agents running entirely in the browser. The schema is portable across all of them.</p></div>
       <div class="feature"><div class="fh"><h4>Browser Explorer</h4></div><p>A WASM-powered interactive viewer for walking a state DAG, inspecting commits, and reading blame right in a browser tab — no backend required. Ideal for demos, debugging, and client-side prototypes.</p><div style="margin-top:8px"><a href="/explorer/" style="font-size:12px;font-weight:600">Open the Explorer →</a></div></div>
     </div>
   </div>
@@ -481,7 +481,7 @@ const year = new Date().getFullYear();
     <div class="principle" data-reveal>
       <div class="ph"><div class="picon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#93c5fd" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg></div><h3>Governance &amp; control</h3></div>
       <p class="why">Autonomy without limits is a liability. Governance is the ability to draw hard lines — this agent may touch these paths, this class of change needs approval, this tenant is isolated from that one — and have those lines hold at machine speed, across every actor, without a human in the loop for each decision.</p>
-      <p class="how"><b>In ASG:</b> namespaces isolate tenants, policies bound what changes are permissible, taint quarantines sensitive paths, and sessions scope each agent to exactly the surface it needs.</p>
+      <p class="how"><b>In ASG:</b> each tenant gets its own partition of the store, namespace-bound API keys confine a client to its branches, policies decide what changes are permissible, taint quarantines sensitive paths, and sessions scope each agent to exactly the surface it needs.</p>
     </div>
   </div>
 </section>
@@ -491,7 +491,7 @@ const year = new Date().getFullYear();
   <div class="container">
     <p class="kicker">Use it from anywhere</p>
     <h2 class="title">One primitive, every language</h2>
-    <p class="subtitle">The Rust core is the single source of truth for behavior. Every binding rides the same engine and the same commit format — write from one language, read from another. Registry packages aren't published yet — clone the repo and build from source (each guide has the full steps).</p>
+    <p class="subtitle">The Rust core is the single source of truth for behavior. Every binding rides the same engine and the same commit format — write from one language, read from another. The Rust crates are on crates.io and Swift installs with SwiftPM; the other bindings aren't on public registries yet, so build them from source (each guide has the full steps).</p>
     <div class="lang-grid">
       <div class="lang"><div class="ln">Rust</div><div class="lm">reference implementation · MIT OR Apache-2.0</div><pre><code>cargo add --git https://github.com/agentstatelabs/AgentStateGraph agentstategraph</code></pre></div>
       <div class="lang"><div class="ln">Python</div><div class="lm">PyO3 · 3.10+ · maturin</div><pre><code>cd bindings/python &amp;&amp; maturin develop --release</code></pre></div>
@@ -514,7 +514,7 @@ const year = new Date().getFullYear();
     <div class="back-grid">
       <div class="backend"><div class="bn">Memory</div><div class="bd">Ephemeral, in-process. Tests, speculation, caching.</div></div>
       <div class="backend"><div class="bn">SQLite</div><div class="bd">Single-file durability with WAL concurrency. The default.</div></div>
-      <div class="backend"><div class="bn">Postgres</div><div class="bd">Connection-pooled and multi-tenant. For SaaS and enterprise.</div></div>
+      <div class="backend"><div class="bn">Postgres</div><div class="bd">Connection-pooled, with TLS. Tenants partitioned in a shared database.</div></div>
       <div class="backend"><div class="bn">IndexedDB</div><div class="bd">Browser-local via WASM. Offline-first, client-side agents.</div></div>
     </div>
   </div>
@@ -534,7 +534,7 @@ const year = new Date().getFullYear();
     </div>
     <div style="text-align:center;margin-top:26px" data-reveal>
       <a class="btn btn-primary" href="/guides/quickstart/">Read the Quick Start</a>
-      <a class="btn btn-secondary" href="/reference/mcp-tools/" style="margin-left:10px">Browse all 73 tools</a>
+      <a class="btn btn-secondary" href="/reference/mcp-tools/" style="margin-left:10px">Browse all 77 tools</a>
     </div>
   </div>
 </section>
@@ -582,7 +582,7 @@ const year = new Date().getFullYear();
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:15px;max-width:var(--maxw);margin:0 auto">
       <a href="https://github.com/agentstatelabs/AgentStateGraph" target="_blank" class="feature" style="display:block;color:inherit">
         <div class="fh"><h4>AgentStateGraph</h4><span class="badge">substrate</span></div>
-        <p>The substrate itself — content-addressed, branchable, governable agent state, with 73 MCP tools and eight language bindings.</p>
+        <p>The substrate itself — content-addressed, branchable, governable agent state, with 77 MCP tools and eight language bindings.</p>
       </a>
       <a href="https://ctxone.com" target="_blank" class="feature" style="display:block;color:inherit">
         <div class="fh"><h4>CTXone</h4><span class="badge">memory &amp; context</span></div>
@@ -635,7 +635,7 @@ const year = new Date().getFullYear();
     <a href="https://agentstatelabs.com/" target="_blank" rel="noopener">AgentStateLabs</a>
   </div>
   <div class="footer-bottom">
-    AgentStateGraph <span data-release="agentstategraph">v1.2.8</span> · <a href="https://github.com/agentstatelabs/AgentStateGraph/blob/main/LICENSING.md" target="_blank">MIT OR Apache-2.0</a> · Rust core · 73 MCP tools · 8 bindings · 4 storage backends · HTTP API
+    AgentStateGraph <span data-release="agentstategraph">v1.3.0</span> · <a href="https://github.com/agentstatelabs/AgentStateGraph/blob/main/LICENSING.md" target="_blank">MIT OR Apache-2.0</a> · Rust core · 77 MCP tools · 8 bindings · 4 storage backends · HTTP API
   </div>
   <div class="footer-bottom">&copy; {year} AgentStateLabs, LLC.</div>
 </footer>
@@ -668,7 +668,7 @@ const year = new Date().getFullYear();
       { p: '$ ', t: 'curl -sSL https://agentstategraph.dev/install.sh | sh', d: 18 },
       { o: 'installed agentstategraph-mcp → ~/.local/bin', w: 320 },
       { p: '$ ', t: 'agentstategraph-mcp --http --port 3001', d: 22 },
-      { o: 'AgentStateGraph v1.2.8\nStorage: ./agentstategraph.db (sqlite)\nMCP: 73 tools ready · HTTP API on http://0.0.0.0:3001', w: 420 },
+      { o: 'AgentStateGraph v1.3.0\nStorage: ./agentstategraph.db (sqlite)\nMCP: 77 tools ready · HTTP API on http://127.0.0.1:3001', w: 420 },
       { p: '$ ', t: 'curl localhost:3001/api/blame/main?path=/cluster/node-3', d: 20 },
       { o: '{ "agent": "agent/monitor", "intent": "Fix", "confidence": 0.73,\n  "reasoning": "health check failed 3x in 60s; rerouting" }', w: 300 }
     ];

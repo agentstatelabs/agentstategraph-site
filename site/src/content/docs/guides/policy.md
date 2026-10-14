@@ -11,9 +11,20 @@ A policy is a named rule with:
 - **Subject** — which agent or role this applies to
 - **Predicate** — which paths and intent categories are governed
 - **Decision** — `Allow`, `Deny`, or `RequireApproval`
-- **Fallback** — what happens when no policy matches (configurable server-wide as `allow` or `deny`)
+- **Fallback** — for `RequireApproval`, what to do while approval is pending
 
-Policies are **soft enforcement by default**: a `Deny` decision is recorded in the audit trail but the commit may or may not be blocked depending on your server configuration. This lets you gradually roll out governance without breaking existing workflows.
+Policy is **advisory**: evaluating it returns a decision, and the caller acts on it. Ordinary commits (library calls, HTTP, MCP `set`) don't consult policy. The built-in gate is MCP `commit_spec`, which promotes a speculation only when policy allows it, or when nothing in the change is flagged for policy. Pair policy with hard enforcement (Cedar/OPA/IAM at the perimeter) when you need a runtime kill-switch.
+
+## Decisions
+
+Evaluation produces a decision:
+
+- **`Allow`** — the change may proceed.
+- **`Deny`** — the change shouldn't proceed; `commit_spec` refuses it.
+- **`RequireApproval`** — the change needs sign-off; it carries a fallback action describing what to do while approval is pending.
+- **`NoPolicyMatch`** — no policy applied. The MCP server applies a fail-safe, `deny` by default (`--policy-fail-safe allow` or `ASG_POLICY_FAIL_SAFE=allow` to change it): the `policy_evaluate` tools report the result as a deny, and `commit_spec` refuses a change that carries tokens (`destructive`, `large`, ...) no policy covers. A change with no tokens can't match any policy, so `commit_spec` promotes it.
+
+Precedence is `deny > require_approval > allow`, so the most restrictive matching policy wins.
 
 ## Lifecycle: propose → ratify → active
 
@@ -40,7 +51,7 @@ Policies are **soft enforcement by default**: a `Deny` decision is recorded in t
 
 ## Evaluating a change
 
-Before committing a sensitive change, evaluate it against active policies:
+Before committing a sensitive change, evaluate it against active policies and act on the decision:
 
 ```json
 // agentstategraph_policy_evaluate_change
@@ -110,19 +121,21 @@ warning and skips it (rather than failing to start). Rego and Cedar shell out to
 their respective binaries, so those must be present on `$PATH`; the WASM runner
 is self-contained.
 
-Register a policy body for an external engine with the matching tool:
+A policy uses an external engine through its `external_evaluator` field, set when you propose it. The source is inline, a file path, or a path in the state tree:
 
 ```json
-// agentstategraph_policy_cedar   (or _policy_rego)
-{
-  "policy_id": "my-cedar-policy",
-  "source": "permit(principal, action == Action::\"set\", resource) when { ... };"
+// part of a policy proposed with agentstategraph_policy_propose
+"external_evaluator": {
+  "kind": "cedar",
+  "source": { "kind": "inline", "body": "permit(principal, action == Action::\"set\", resource) when { ... };" }
 }
 ```
 
+`kind` is `cedar`, `rego` or `wasm`; the source's `kind` is `inline` (with `body`), `file_path` (with `path`) or `commit_ref` (with `path`). A policy whose engine isn't registered is skipped.
+
 ## Policy signing
 
-For high-assurance environments, policies can be signed with Ed25519 keys. When the server is configured with `require_signed_policies: true`, unsigned policies are filtered from the active set and do not participate in evaluation.
+For high-assurance environments, policies can be signed with Ed25519 keys. A store built `with_verifier(...)` and `with_require_signed(true)` (in the MCP server, `with_policy_verifier` and `with_require_signed_policies(true)`) skips any policy that is unsigned or whose signature doesn't verify, so it takes no part in evaluation.
 
 ```json
 // agentstategraph_policy_sign

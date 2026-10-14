@@ -76,6 +76,6 @@ bindings. They are not yet available in the Go or .NET bindings — see the
 
 ## See also
 
-- [Namespaces](/guides/namespaces/) — the per-tenant isolation unit sessions live within
+- [Namespaces](/guides/namespaces/) — separate sets of branches; a session can be scoped to one
 - [Epochs](/guides/epochs/) — seal a finished session's output into an audit bundle
 - [Core Concepts](/guides/concepts/) — intents, branches, authority, and delegation

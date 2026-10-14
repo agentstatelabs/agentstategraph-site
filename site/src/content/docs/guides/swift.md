@@ -142,9 +142,9 @@ see [Taint & Quarantine](/guides/taint-and-quarantine/).
 The advanced layer is available on the same handle:
 
 ```swift
-// Namespaces — per-tenant isolation
-let db = try asg.createNamespace("tenant-a")
-let scoped = asg.scoped(to: "tenant-a")
+// Namespaces — a separate set of branches per project, in one store
+let db = try asg.createNamespace("project-a")
+let scoped = asg.scoped(to: "project-a")
 
 // Speculation — try changes without committing, then compare/commit/discard
 let h = try asg.speculate(from: "main", label: "what-if")

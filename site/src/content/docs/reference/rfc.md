@@ -65,7 +65,7 @@ Optional schema annotations for validation and merge behavior.
 
 How AgentStateGraph exposes itself as an MCP server.
 
-- **7.1 Tools** -- All 73 tools with full parameter schemas, descriptions, and example inputs/outputs.
+- **7.1 Tools** -- All 77 tools: 40 core (state, branching, speculation, query/audit, namespaces, epochs, sessions, explorer, GC and history), 10 tasks, 12 policy, 8 taint, 7 reminders. Full parameter schemas, descriptions, and example inputs/outputs documented in the [MCP Tools Reference](/reference/mcp-tools/).
 - **7.2 Resources** -- MCP resource endpoints for state at paths.
 - **7.3 Events** -- MCP event notifications for state changes.
 
@@ -74,9 +74,9 @@ How AgentStateGraph exposes itself as an MCP server.
 Implementation structure.
 
 - **8.1 Crate Structure** -- `agentstategraph-core` (types, diff, merge), `agentstategraph-storage` (pluggable backends), `agentstategraph` (high-level API), `agentstategraph-mcp` (MCP server + migrate CLI), `agentstategraph-tasks` (shared Plan/Task primitive), `agentstategraph-migrate` (schema-evolution framework).
-- **8.2 Storage Traits** -- The `Storage` trait interface for pluggable backends (Memory, SQLite, IndexedDB).
+- **8.2 Storage Traits** -- The `Storage` trait interface for pluggable backends (Memory, SQLite, Postgres, IndexedDB).
 - **8.3 Performance Design** -- Content-addressed deduplication, O(1) branch creation, copy-on-write speculation.
-- **8.4 Language Bindings** -- Python (PyO3), TypeScript (napi-rs), Go (C FFI), WASM (wasm-bindgen).
+- **8.4 Language Bindings** -- Python (PyO3), TypeScript (napi-rs), Go (C FFI / CGo), .NET (C FFI), Swift (C FFI), WASM (wasm-bindgen).
 
 ### 9. Human-Agent Collaboration
 
@@ -103,7 +103,7 @@ Implementation details and test coverage.
 
 - **11.1 Principles** -- Correctness over performance, content-addressed everything, zero unsafe.
 - **11.2 Rust Reference Library** -- The `agentstategraph` crate with Repository API.
-- **11.3 MCP Server** -- The `agentstategraph-mcp` crate with all 73 tools plus the `migrate` subcommand.
+- **11.3 MCP Server** -- The `agentstategraph-mcp` crate with all 77 tools plus the `migrate` subcommand.
 - **11.4 Getting Started Example** -- End-to-end code walkthrough.
 - **11.5 Implementation Test Suite** -- 220+ tests across 8 crates covering all operations.
 

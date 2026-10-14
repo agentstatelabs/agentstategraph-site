@@ -3,19 +3,28 @@ title: Taint & Quarantine
 description: Mark sensitive paths and enforce access restrictions at commit time.
 ---
 
-`agentstategraph-taint` is a mark-and-sweep primitive for flagging paths that need special handling. It provides three levels of control: **taint** (soft warning), **quarantine** (hard gate), and **watch** (change subscription).
+`agentstategraph-taint` is a mark-and-sweep primitive for flagging paths that need special handling. It provides three kinds of mark: **taint** (a path is suspect, and the taint's effect decides what happens on write), **quarantine** (only authorized agents may write), and **watch** (change subscription).
 
-## Taint — soft flag
+## Taint
 
-A taint marks a path as sensitive. It doesn't block writes, but it surfaces in `policy_evaluate_change_with_taints` so agents and policies can react.
+A taint marks a path as suspect. Its **effect** decides what a pre-commit hook does on every `set`, `delete` and `merge` that touches the path:
+
+- **`warn`** — allow the write, and surface a warning.
+- **`block`** — reject the write.
+- **`review`** — allow it only if the commit's confidence is at least 0.9.
+- **`isolate`** — allow it, but hide the path from `search` and `query`.
+
+Taints also surface in `policy_evaluate_change_with_taints`, so policies can react to them. When marks overlap, a quarantine wins, then `block`, then `review`, then `isolate`, then `warn`.
 
 ```json
 // agentstategraph_taint
 {
   "path": "/cluster/prod/secrets",
+  "name": "credentials",
+  "effect": "block",
   "severity": "high",
   "reason": "Contains credentials — requires security review before any change",
-  "tagged_by": "agent/security-scanner"
+  "agent_id": "agent/security-scanner"
 }
 ```
 
