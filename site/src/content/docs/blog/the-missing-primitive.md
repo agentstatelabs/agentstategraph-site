@@ -108,6 +108,8 @@ For enterprise adoption, work can be grouped into **epochs** -- bounded, sealabl
 
 AgentStateGraph is open source under [MIT OR Apache-2.0](https://github.com/agentstatelabs/AgentStateGraph/blob/main/LICENSING.md) (free for any use, commercial or not) and available today:
 
+*Update:* this post first announced AgentStateGraph under BSL 1.1. It has since returned to MIT OR Apache-2.0, and that grant covers the BSL-licensed releases too. See [LICENSING.md](https://github.com/agentstatelabs/AgentStateGraph/blob/main/LICENSING.md).
+
 **As an MCP server** (connect to Claude, GPT, or any MCP agent):
 ```bash
 cargo run -p agentstategraph-mcp

@@ -83,14 +83,14 @@ curl "http://localhost:3001/api/state/main/search?query=project"
 curl http://localhost:3001/api/stats/main
 ```
 
-19 endpoints with CORS enabled — see the [MCP Server guide](/guides/mcp-server/#http-rest-api) for the full list.
+A full REST API; see the [MCP Server guide](/guides/mcp-server/#http-rest-api) for the endpoints and for calling it from a browser.
 
 ## Option 3: Rust Library (embed in your own app)
 
-The crates aren't published to crates.io yet, so depend on them straight from the repo:
+The crates are on crates.io:
 
 ```bash
-cargo add --git https://github.com/agentstatelabs/AgentStateGraph agentstategraph agentstategraph-core agentstategraph-storage
+cargo add agentstategraph agentstategraph-core agentstategraph-storage
 ```
 
 ```rust

@@ -42,12 +42,13 @@ export default defineConfig({
 						{ label: 'Tasks & plans', slug: 'guides/tasks' },
 						{ label: 'Reminders', slug: 'guides/reminders' },
 						{ label: 'Epochs', slug: 'guides/epochs' },
+						{ label: 'Observability', slug: 'guides/observability' },
 					],
 				},
 				{
 					label: 'Reference',
 					items: [
-						{ label: 'MCP Tools (73)', slug: 'reference/mcp-tools' },
+						{ label: 'MCP Tools (77)', slug: 'reference/mcp-tools' },
 						{ label: 'Binding Capabilities', slug: 'reference/capabilities' },
 						{ label: 'RFC Specification', slug: 'reference/rfc' },
 					],

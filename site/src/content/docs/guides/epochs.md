@@ -56,5 +56,5 @@ modified — any later tampering is detectable by recomputing the root.
 
 ## See also
 
-- [Namespaces](/guides/namespaces/) — the per-tenant isolation unit epochs live within
-- [Policy](/guides/policy/) — governance rules evaluated as work enters the graph
+- [Namespaces](/guides/namespaces/) — separate sets of branches for projects sharing one store
+- [Policy](/guides/policy/) — governance rules you evaluate before work enters the graph

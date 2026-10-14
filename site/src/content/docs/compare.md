@@ -26,9 +26,9 @@ They are not competitors to each other. They occupy different layers of the stac
 | **Intent / reasoning** | No structured field | None | Per-commit: category, description, reasoning, confidence, authority, alternatives |
 | **Blame** | SQL queries over state history | None | Per-path; surfaces who, why, when, and at what confidence |
 | **Audit surface** | Encrypted state at rest, RBAC, history | Optional thread checkpoints | Tamper-evident sealed epochs |
-| **Language / bindings** | Rust + Go, backs the Terraform CLI | Python only | Rust core with Python, TypeScript, Go, .NET / C#, WASM, and C FFI bindings |
-| **Primary interface** | `terraform` / `opentofu` CLI | Python library imports | MCP server (73 tools), library calls, migrate CLI |
-| **Storage backends** | PostgreSQL | Process memory (+ optional checkpointer) | Memory, SQLite, Postgres (multi-tenant), IndexedDB (browser) |
+| **Language / bindings** | Rust + Go, backs the Terraform CLI | Python only | Rust core with Python, TypeScript, Go, Swift, .NET / C#, WASM, and C FFI bindings |
+| **Primary interface** | `terraform` / `opentofu` CLI | Python library imports | MCP server (77 tools), library calls, HTTP REST, migrate CLI |
+| **Storage backends** | PostgreSQL | Process memory (+ optional checkpointer) | Memory, SQLite, Postgres (tenant-partitioned, TLS), IndexedDB (browser) |
 | **Closest analogy** | A better database under Terraform | A state machine inside your agent | Git for agent-era state |
 
 ## Why the differences matter

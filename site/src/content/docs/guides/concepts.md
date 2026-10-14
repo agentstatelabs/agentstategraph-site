@@ -68,17 +68,19 @@ Working contexts for sub-agent orchestration. Each session has an agent identity
 
 ## Namespaces
 
-Ref-layer isolation for multi-project or multi-tenant deployments. Each namespace is an independent ref space — branches in namespace A are invisible to namespace B. Every tool accepts an optional `namespace` parameter that routes the operation to a specific namespace without changing the server's default. Cross-namespace merges are available but denied by default.
+A separate set of branches in one store. Every branch is keyed on a composite `(namespace, name)` primary key, so two namespaces can hold same-named branches without collision. Namespaces share the store's objects and commits, so they partition branches rather than isolate data; an API key bound to a namespace is how to confine a client to one. The ref-touching MCP tools accept an optional `namespace` parameter that routes the operation to a specific namespace without changing the server's default. Cross-namespace merges are always refused for now. See the [Namespaces guide](/guides/namespaces/).
 
 ## Policy
 
-Authorization and cost-of-change gating layered on top of commits. A policy is a named rule with a subject (who), a predicate (what paths, what intent categories), and a decision (`Allow`, `Deny`, or `RequireApproval`). Policies are stored in the state graph itself under `/_meta/policies/`, so every policy change is auditable via `log` and `blame`.
+Authorization and cost-of-change gating for proposed changes. A policy is a named rule with a subject (who), a predicate (what paths, what intent categories), and a decision (`Allow`, `Deny`, or `RequireApproval`). Policies are stored in the state graph itself under `/_meta/policies/`, so every policy change is auditable via `log` and `blame`.
 
-Three evaluator backends are supported: a built-in rule engine, Cedar (attribute-based), and Rego (OPA). WASM host runners allow custom external evaluators. Policies can be signed with Ed25519 keys and the server can be configured to reject unsigned policies.
+Policy is advisory: evaluate a proposed change before it lands, and act on the decision. The MCP `commit_spec` tool is the built-in gate: it refuses a speculation that policy denies, and by default one flagged as risky (a deletion, say) that no policy covers. See the [Policy guide](/guides/policy/).
+
+Three evaluator backends are supported: a built-in rule engine, Cedar (attribute-based), and Rego (OPA). WASM host runners allow custom external evaluators. Policies can be signed with Ed25519 keys, and a policy store can be configured to skip unsigned policies.
 
 ## Taint & Quarantine
 
-A mark-and-sweep primitive for flagging sensitive or dangerous paths. A **taint** is a soft marker that surfaces in `policy_evaluate_change_with_taints` — the agent is informed but not blocked. A **quarantine** is a hard gate that blocks writes to the quarantined path until lifted.
+A mark-and-sweep primitive for flagging sensitive or dangerous paths. A **taint** marks a path as suspect, and its effect decides what happens on write: warn, block, require high confidence, or hide the path from search. Taints also surface in `policy_evaluate_change_with_taints`. A **quarantine** is a hard gate that blocks writes to the quarantined path until lifted.
 
 **Watch** is a sibling operation: an agent can subscribe to change notifications on a path and receive them the next time it calls `reminder_remind_me`.
 

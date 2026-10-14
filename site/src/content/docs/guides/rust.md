@@ -46,7 +46,7 @@ let repo = Repository::in_memory()?;
 // SQLite (durable)
 let repo = Repository::open_sqlite("state.db")?;
 
-// Postgres (multi-tenant) — requires the `postgres` feature
+// Postgres (tenants partitioned in a shared database) — requires the `postgres` feature
 let repo = Repository::open_postgres("postgres://localhost/asg")?;
 ```
 
@@ -255,9 +255,9 @@ let taints = repo.list_taints("main")?;
 The full advanced surface is on the same handle:
 
 ```rust
-// Namespaces — ref-layer isolation for multi-tenant deployments
-repo.create_namespace("tenant-a")?;
-let scoped = repo.scoped("tenant-a");
+// Namespaces — a separate set of branches per project, in one store
+repo.create_namespace("project-a")?;
+let scoped = repo.scoped("project-a");
 
 // Epochs — sealable, tamper-evident audit bundles
 repo.create_epoch("2026-q3", "Q3 window")?;
@@ -327,4 +327,4 @@ hash mismatch.
 
 - [Core Concepts](/guides/concepts/) — the graph, intents, branches, and merges
 - [Tasks & plans](/guides/tasks/) · [Policy](/guides/policy/) · [Epochs](/guides/epochs/) — the governance & scheduling primitives the Rust API exposes
-- [MCP Server](/guides/mcp-server/) — expose this same core to any agent over 73 tools
+- [MCP Server](/guides/mcp-server/) — expose this same core to any agent over 77 tools
